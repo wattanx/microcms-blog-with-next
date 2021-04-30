@@ -19,6 +19,12 @@ export interface IAuthor extends IMicroCmsResponseBase {
     text?: string;
 }
 
+export interface IBanner extends IMicroCmsResponseBase {
+    image?: IMicroCmsImageType;
+    url?: string;
+    alt?: string;
+}
+
 export type MicroCmsResponse<T> = {
     contents: T[];
     totalCount: number;
