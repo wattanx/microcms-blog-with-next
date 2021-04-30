@@ -1,39 +1,40 @@
 import { useState } from "react";
 import Link from 'next/link';
+import styles from '../styles/components/Header.module.scss';
 
 export const Header: React.FC = () => {
     const [isOpen, setOpen] = useState<boolean>(false);
 
     return (
         <div>
-            <header className="header">
-                <h1 className="logo">
+            <header className={styles.header}>
+                <h1 className={styles.logo}>
                     <Link href="/">
-                        <img className="logoImg" src="/images/vercel.svg" alt="microCMS" />
+                        <img className={styles.logoImg} src="/images/vercel.svg" alt="microCMS" />
                     </Link>
                 </h1>
-                <button className="menuBtn" onClick={() => setOpen(!isOpen)}>
+                <button className={styles.menuBtn} onClick={() => setOpen(!isOpen)}>
                     <img src="/images/icon_menu.svg" alt="menu" />
                 </button>
                 {isOpen && 
-                    (<div className="mask" onClick={() => setOpen(false)}></div>)
+                    (<div className={styles.mask} onClick={() => setOpen(false)}></div>)
                 }
                 
-                <div className={ isOpen ? 'menu isOpen' : 'menu' }>
-                    <ul className="lists">
-                        <li className="list">
+                <div className={ isOpen ? `${styles.menu} ${styles.isOpen}` : styles.menu }>
+                    <ul className={styles.lists}>
+                        <li className={styles.list}>
                             <a href="">menu1</a>
                         </li>
-                        <li className="list">
+                        <li className={styles.list}>
                             <a href="">menu2</a>
                         </li>
-                        <li className="list">
+                        <li className={styles.list}>
                             <a href="">menu3</a>
                         </li>
                     </ul>
                 </div>
             </header>
-            <div className="empty"></div>
+            <div className={styles.empty}></div>
         </div>
     )
 }
