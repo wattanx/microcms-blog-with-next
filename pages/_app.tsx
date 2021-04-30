@@ -18,8 +18,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
               href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" 
             />
       </Head>
-      <Header />
-      <Component {...pageProps} />
+      <div className="wrapper">
+        <Header />
+        <Component {...pageProps} />
+      </div>
       <Footer />
     </>
   );

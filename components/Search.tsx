@@ -11,6 +11,7 @@ export const Search: React.FC = () => {
 
     return (
         <label className={styles.label}>
+            サイト内検索
             <input className={styles.input} type="text" onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onEnterKeyEvent}/>
         </label>
     );

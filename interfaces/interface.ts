@@ -25,6 +25,14 @@ export interface IBanner extends IMicroCmsResponseBase {
     alt?: string;
 }
 
+export interface IPopularArticles {
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    revisedAt: string;
+    articles: IBlog[];
+}
+
 export type MicroCmsResponse<T> = {
     contents: T[];
     totalCount: number;

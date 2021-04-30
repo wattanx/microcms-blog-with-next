@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 type BreadCrumbProps = {
-    category: CategoryType;
+    category?: CategoryType;
 }
 
 type CategoryType = {
@@ -14,6 +14,7 @@ type CategoryType = {
 
 export const BreadCrumb: React.FC<BreadCrumbProps> = (props) => {
     const hasCategory = (category: CategoryType) => {
+        if (!category) { return false; }
         return Object.keys(category).length > 0;
     }
     return (
