@@ -7,8 +7,8 @@ type CategoriesProps = {
 
 export const Categories: React.FC<CategoriesProps> = (props) => {
     return (
-        <div className="wrapper">
-            <h1>カテゴリー</h1>
+        <div className={styles.wrapper}>
+            <h1 className={styles.pageTitle}>カテゴリー</h1>
             <ul>
                 {props.categories.map(category => {
                         return (

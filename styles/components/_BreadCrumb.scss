@@ -12,7 +12,7 @@
     content: '>';
     margin: 0 10px;
   }
-  &:last-child&::after {
+  &:last-child::after {
     content: '';
     margin: 0;
   }

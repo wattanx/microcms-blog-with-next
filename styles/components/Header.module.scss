@@ -38,13 +38,6 @@
   .lists {
     display: flex;
     align-items: center;
-    &:first-child::after {
-      content: '';
-      width: 1px;
-      height: 30px;
-      background-color: var(--color-text-off);
-      margin-right: 40px;
-    }
   }
   .list {
     margin-right: 30px;
