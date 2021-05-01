@@ -1,19 +1,12 @@
 import Link from "next/link"
+import { ICategory } from "../interfaces/interface"
 
 type BreadCrumbProps = {
-    category?: CategoryType;
-}
-
-type CategoryType = {
-    type: Object;
-    required: boolean;
-    default(): void;
-    id: number;
-    name: string;
+    category?: ICategory;
 }
 
 export const BreadCrumb: React.FC<BreadCrumbProps> = (props) => {
-    const hasCategory = (category: CategoryType) => {
+    const hasCategory = (category: ICategory) => {
         if (!category) { return false; }
         return Object.keys(category).length > 0;
     }
