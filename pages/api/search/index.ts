@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '../../../site.config';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function (req: NextApiRequest, res: NextApiResponse) {
   const query: any = req.query.q;
   if (!query) {
     res.status(400).json({ error: `missing queryparamaeter` });
@@ -18,7 +18,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     .catch((error) => {
       res.status(500).json(error);
     });
-
 }
-
-export default handler
