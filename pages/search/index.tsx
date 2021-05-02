@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -36,8 +35,8 @@ const Index: NextPage<IndexProps> = (props) => {
 
   const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      const data = (await axios.get(`/api/search?q=${e.currentTarget.value}`)).data;
-      console.log(data);
+      const data = await getBlogsByQuery(e.currentTarget.value);
+      
       setBlogs(data);
     }
   };
