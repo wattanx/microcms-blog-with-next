@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 import { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '../../../site.config';
 
@@ -12,10 +12,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     .get(`https://${config.serviceId}.microcms.io/api/v1/blog?q=${encodeURIComponent(query)}`, {
       headers: { 'X-API-KEY': config.apiKey },
     })
-    .then(({ data }) => {
+    .then((data: any) => {
       res.status(200).json(data);
     })
-    .catch((error) => {
+    .catch((error: any) => {
       res.status(500).json(error);
     });
 };
