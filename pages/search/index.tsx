@@ -14,7 +14,6 @@ import {
   IPopularArticles,
   MicroCmsResponse,
 } from '../../interfaces/interface';
-import { config } from '../../site.config';
 import styles from '../../styles/SearchPage.module.scss';
 import {
   getBanners,

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { BreadCrumb } from '../../components/BreadCrumb';
@@ -14,7 +13,6 @@ import {
   IPopularArticles,
   MicroCmsResponse,
 } from '../..//interfaces/interface';
-import { config } from '../../site.config';
 import { Banner } from '../../components/Banner';
 import {
   getBanners,

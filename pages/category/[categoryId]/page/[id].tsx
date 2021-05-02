@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { Banner } from '../../../../components/Banner';
@@ -15,7 +14,6 @@ import {
   IPopularArticles,
   MicroCmsResponse,
 } from '../../../../interfaces/interface';
-import { config } from '../../../../site.config';
 import {
   getBanners,
   getBlogsByCategory,
