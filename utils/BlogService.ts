@@ -33,7 +33,8 @@ export async function getBlogById(blogId: string): Promise<IBlog> {
 }
 
 export async function getBlogsByQuery(query: string): Promise<MicroCmsResponse<IBlog>> {
-  return (await axios.get(`/api/search?q=${query}`)).data;
+  const url: string = process.env.NODE_ENV === 'production' ? `/api/search?q=${query}` : 'http://localhost:3000'; 
+  return (await axios.get(url)).data;
 }
 
 export async function getCategories(): Promise<MicroCmsResponse<ICategory>> {
