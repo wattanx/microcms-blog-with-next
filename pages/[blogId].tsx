@@ -1,10 +1,17 @@
 import axios from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
+import { Banner } from '../components/Banner';
 import { BreadCrumb } from '../components/BreadCrumb';
 import { Categories } from '../components/Categories';
 import { PopularArticle } from '../components/PopularArticle';
 import { Search } from '../components/Search';
-import { IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '../interfaces/interface';
+import {
+  IBanner,
+  IBlog,
+  ICategory,
+  IPopularArticles,
+  MicroCmsResponse,
+} from '../interfaces/interface';
 import { config } from '../site.config';
 import styles from '../styles/Detail.module.scss';
 
@@ -12,6 +19,7 @@ type DetailProps = {
   blogs: IBlog;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
+  banner: IBanner;
 };
 
 const Detail: NextPage<DetailProps> = (props) => {
@@ -29,6 +37,7 @@ const Detail: NextPage<DetailProps> = (props) => {
         </div>
       </article>
       <aside className="aside">
+        <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories.contents} />
         <PopularArticle blogs={props.popularArticles.articles} />
@@ -54,11 +63,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       headers: { 'X-API-KEY': config.apiKey },
     })
   ).data;
+  const banner = (
+    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/banner`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
   return {
     props: {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
+      banner: banner,
     },
   };
 }

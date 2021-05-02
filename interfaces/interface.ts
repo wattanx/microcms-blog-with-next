@@ -23,6 +23,10 @@ export interface IBanner extends IMicroCmsResponseBase {
   image?: IMicroCmsImageType;
   url?: string;
   alt?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
 }
 
 export interface IPopularArticles {

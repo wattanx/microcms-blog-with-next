@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
+import { Banner } from '../../../../components/Banner';
 import { BreadCrumb } from '../../../../components/BreadCrumb';
 import { Categories } from '../../../../components/Categories';
 import { Meta } from '../../../../components/Meta';
@@ -8,6 +9,7 @@ import { Pager } from '../../../../components/Pager';
 import { PopularArticle } from '../../../../components/PopularArticle';
 import { Search } from '../../../../components/Search';
 import {
+  IBanner,
   IBlog,
   ICategory,
   IPopularArticles,
@@ -19,6 +21,7 @@ type PageProps = {
   blogs: MicroCmsResponse<IBlog>;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
+  banner: IBanner;
   pager: [];
   selectedCategory: ICategory;
 };
@@ -65,6 +68,7 @@ const Page: NextPage<PageProps> = (props) => {
         )}
       </div>
       <aside className="aside">
+        <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories.contents} />
         <PopularArticle blogs={props.popularArticles.articles} />
@@ -100,12 +104,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     categoryId !== undefined
       ? categories.contents.find((content) => content.id === categoryId)
       : undefined;
-
+  const banner = (
+    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/banner`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
   return {
     props: {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
+      banner: banner,
       pager: [...Array(Math.ceil(blogs.totalCount / 10)).keys()],
       selectedCategory: selectedCategory,
     },

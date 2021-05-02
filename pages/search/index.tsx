@@ -2,11 +2,18 @@ import axios from 'axios';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
+import { Banner } from '../../components/Banner';
 import { BreadCrumb } from '../../components/BreadCrumb';
 import { Categories } from '../../components/Categories';
 import { Meta } from '../../components/Meta';
 import { PopularArticle } from '../../components/PopularArticle';
-import { IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '../../interfaces/interface';
+import {
+  IBanner,
+  IBlog,
+  ICategory,
+  IPopularArticles,
+  MicroCmsResponse,
+} from '../../interfaces/interface';
 import { config } from '../../site.config';
 import styles from '../../styles/SearchPage.module.scss';
 
@@ -14,6 +21,7 @@ type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
+  banner: IBanner;
   query: string;
 };
 
@@ -72,6 +80,7 @@ const Index: NextPage<IndexProps> = (props) => {
         </ul>
       </div>
       <aside className="aside">
+        <Banner banner={props.banner} />
         <Categories categories={props.categories.contents} />
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
@@ -93,11 +102,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       headers: { 'X-API-KEY': config.apiKey },
     })
   ).data;
+  const banner = (
+    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/banner`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
   return {
     props: {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
+      banner: banner,
       query: query,
     },
   };

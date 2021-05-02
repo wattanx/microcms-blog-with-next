@@ -7,13 +7,21 @@ import { Meta } from '../../components/Meta';
 import { Pager } from '../../components/Pager';
 import { PopularArticle } from '../../components/PopularArticle';
 import { Search } from '../../components/Search';
-import { IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '../..//interfaces/interface';
+import {
+  IBanner,
+  IBlog,
+  ICategory,
+  IPopularArticles,
+  MicroCmsResponse,
+} from '../..//interfaces/interface';
 import { config } from '../../site.config';
+import { Banner } from '../../components/Banner';
 
 type PageProps = {
   blogs: MicroCmsResponse<IBlog>;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
+  banner: IBanner;
   pager: [];
 };
 
@@ -59,6 +67,7 @@ const Page: NextPage<PageProps> = (props) => {
         )}
       </div>
       <aside className="aside">
+        <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories.contents} />
         <PopularArticle blogs={props.popularArticles.articles} />
@@ -89,11 +98,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       headers: { 'X-API-KEY': config.apiKey },
     })
   ).data;
+  const banner = (
+    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/banner`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
   return {
     props: {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
+      banner: banner,
       pager: [...Array(Math.ceil(blogs.totalCount / 10)).keys()],
     },
   };

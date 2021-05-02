@@ -9,7 +9,11 @@ export const Banner: React.FC<BannerProps> = (props) => {
   return (
     <div className="wrapper">
       <a
-        href={`${props.banner.url}?utm_source=google&utm_medium=content-text&utm_campain=remarketing`}
+        href={
+          props.banner.url
+            ? `${props.banner.url}?utm_source=google&utm_medium=content-text&utm_campain=remarketing`
+            : ''
+        }
       >
         <picture>
           <img
