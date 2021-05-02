@@ -35,9 +35,9 @@ export interface IPopularArticles {
 
 export type MicroCmsResponse<T> = {
     contents: T[];
-    totalCount: number;
-    offset: number;
-    limit: number;
+    totalCount?: number;
+    offset?: number;
+    limit?: number;
 }
 
 export interface IMicroCmsResponseBase {

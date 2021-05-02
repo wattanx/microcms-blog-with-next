@@ -1,18 +1,19 @@
-import { useState } from 'react';
+import { useRouter } from 'next/dist/client/router';
 import styles from '../styles/components/Search.module.scss';
 
 export const Search: React.FC = () => {
-
-    const [searchable, setSearchable] = useState<boolean>(false);
+    const router = useRouter();
 
     const onEnterKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        // TODO 検索処理
+        if (e.key !== 'Enter') {
+            router.push(`/search?q=${e.currentTarget.value}`);
+        }
     }
 
     return (
         <label className={styles.label}>
             サイト内検索
-            <input className={styles.input} type="text" onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onEnterKeyEvent}/>
+            <input className={styles.input} type="text" onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onEnterKeyEvent(e)}/>
         </label>
     );
 }
