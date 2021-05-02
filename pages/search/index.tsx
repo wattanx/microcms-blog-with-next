@@ -1,42 +1,60 @@
-import { GetStaticPropsContext, NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
-import { Banner } from '../components/Banner';
-import { BreadCrumb } from '../components/BreadCrumb';
-import { Categories } from '../components/Categories';
-import { Meta } from '../components/Meta';
-import { Pager } from '../components/Pager';
-import { PopularArticle } from '../components/PopularArticle';
-import { Search } from '../components/Search';
+import { useState } from 'react';
+import { Banner } from '../../components/Banner';
+import { BreadCrumb } from '../../components/BreadCrumb';
+import { Categories } from '../../components/Categories';
+import { Meta } from '../../components/Meta';
+import { PopularArticle } from '../../components/PopularArticle';
 import {
   IBanner,
   IBlog,
   ICategory,
   IPopularArticles,
   MicroCmsResponse,
-} from '../interfaces/interface';
+} from '../../interfaces/interface';
+import styles from '../../styles/SearchPage.module.scss';
 import {
   getBanners,
-  getBlogsByCategory,
+  getBlogsByQuery,
   getCategories,
   getPopularArticles,
-} from '../utils/BlogService';
+} from '../../utils/BlogService';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
   banner: IBanner;
-  pager: [];
+  query: string;
 };
 
 const Index: NextPage<IndexProps> = (props) => {
+  const [searchValue, setSearchValue] = useState<string>(props.query);
+  const [blogs, setBlogs] = useState<MicroCmsResponse<IBlog>>(props.blogs);
+
+  const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const data = await getBlogsByQuery(e.currentTarget.value);
+      
+      setBlogs(data);
+    }
+  };
+
   return (
     <div className="divider">
       <div className="container">
+        <input
+          value={searchValue}
+          className={styles.search}
+          type="text"
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyPress={(e) => onEnterKeyEvent(e)}
+        />
         <BreadCrumb />
-        {props.blogs.contents.length === 0 && <>記事がありません</>}
+        {blogs.contents.length === 0 && <>記事がありません</>}
         <ul>
-          {props.blogs.contents.map((blog) => {
+          {blogs.contents.map((blog) => {
             return (
               <li key={blog.id} className="list">
                 <Link href="/[blogId]" as={`/${blog.id}`}>
@@ -64,15 +82,9 @@ const Index: NextPage<IndexProps> = (props) => {
             );
           })}
         </ul>
-        {props.blogs.contents.length > 0 && (
-          <ul className="pager">
-            <Pager pager={props.pager} />
-          </ul>
-        )}
       </div>
       <aside className="aside">
         <Banner banner={props.banner} />
-        <Search />
         <Categories categories={props.categories.contents} />
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
@@ -80,11 +92,9 @@ const Index: NextPage<IndexProps> = (props) => {
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const page: any = context.params || '1';
-  const categoryId: any = context.params;
-  const limit: number = 10;
-  const blogs = await getBlogsByCategory(limit, categoryId, page);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const query = context.query.q;
+  const blogs = await getBlogsByQuery(query as string);
   const categories = await getCategories();
   const popularArticles = await getPopularArticles();
   const banner = await getBanners();
@@ -93,8 +103,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
-      pager: [...Array(Math.ceil(blogs.totalCount / 10)).keys()],
       banner: banner,
+      query: query,
     },
   };
 }

@@ -1,0 +1,18 @@
+@import '_variables.scss';
+@import './components/BreadCrumb';
+@import './components/Meta';
+@import 'index.scss';
+@import 'reset.css';
+
+a {
+  color: #2b2c30;
+  text-decoration: none;
+}
+
+input,
+select,
+button {
+  &:focus {
+    outline: none;
+  }
+}
