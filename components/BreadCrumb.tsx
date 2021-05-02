@@ -6,7 +6,7 @@ type BreadCrumbProps = {
 };
 
 export const BreadCrumb: React.FC<BreadCrumbProps> = (props) => {
-  const hasCategory = (category: ICategory) => {
+  const hasCategory = (category?: ICategory) => {
     if (!category) {
       return false;
     }
@@ -19,7 +19,7 @@ export const BreadCrumb: React.FC<BreadCrumbProps> = (props) => {
       </li>
       {hasCategory(props.category) && (
         <li className="breadcrumbList">
-          <Link href={`/category/${props.category.id}/page/1`}>{props.category.name}</Link>
+          <Link href={`/category/${props.category?.id}/page/1`}>{props.category?.name}</Link>
         </li>
       )}
     </ul>

@@ -16,7 +16,7 @@ export const PopularArticle: React.FC<PopularArticleProps> = (props) => {
               <a href={`/${blog.id}`} className={styles.link}>
                 <picture>
                   <img
-                    src={`${blog.ogimage.url}?w=560&q=100`}
+                    src={`${blog.ogimage?.url}?w=560&q=100`}
                     className={`${styles.image} ${styles.lazyload}`}
                   />
                 </picture>

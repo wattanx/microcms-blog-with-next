@@ -27,7 +27,7 @@ const Detail: NextPage<DetailProps> = (props) => {
       <article className={styles.article}>
         <div className={styles.ogimageWrap}>
           <picture>
-            <img src={`${props.blogs.ogimage.url}?w=820&q=100`} className={styles.ogimage} />
+            <img src={`${props.blogs.ogimage?.url}?w=820&q=100`} className={styles.ogimage} />
           </picture>
         </div>
         <BreadCrumb category={props.blogs.category} />
@@ -46,7 +46,7 @@ const Detail: NextPage<DetailProps> = (props) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const blogId: any = context.params.blogId || '1';
+  const blogId: any = context.params?.blogId || '1';
   const blogs = await getBlogById(blogId);
   const categories = await getCategories();
   const popularArticles = await getPopularArticles();
