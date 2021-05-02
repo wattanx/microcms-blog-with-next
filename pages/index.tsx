@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { GetStaticPropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { Banner } from '../components/Banner';
@@ -15,7 +14,12 @@ import {
   IPopularArticles,
   MicroCmsResponse,
 } from '../interfaces/interface';
-import { config } from '../site.config';
+import {
+  getBanners,
+  getBlogsByCategory,
+  getCategories,
+  getPopularArticles,
+} from '../utils/BlogService';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -78,31 +82,12 @@ const Index: NextPage<IndexProps> = (props) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params || '1';
-  const categoryId = context.params;
+  const categoryId: any = context.params;
   const limit: number = 10;
-  const blogs = (
-    await axios.get(
-      `https://${config.serviceId}.microcms.io/api/v1/blog?limit=${limit}${
-        categoryId === undefined ? '' : `filters=category[equals]${categoryId}`
-      }&offset=${(page - 1) * limit}`,
-      { headers: { 'X-API-KEY': config.apiKey } },
-    )
-  ).data;
-  const categories = (
-    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/categories`, {
-      headers: { 'X-API-KEY': config.apiKey },
-    })
-  ).data;
-  const popularArticles = (
-    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/popular-articles`, {
-      headers: { 'X-API-KEY': config.apiKey },
-    })
-  ).data;
-  const banner = (
-    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/banner`, {
-      headers: { 'X-API-KEY': config.apiKey },
-    })
-  ).data;
+  const blogs = await getBlogsByCategory(limit, categoryId, page);
+  const categories = await getCategories();
+  const popularArticles = await getPopularArticles();
+  const banner = await getBanners();
   return {
     props: {
       blogs: blogs,

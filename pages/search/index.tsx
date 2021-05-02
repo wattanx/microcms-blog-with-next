@@ -16,6 +16,12 @@ import {
 } from '../../interfaces/interface';
 import { config } from '../../site.config';
 import styles from '../../styles/SearchPage.module.scss';
+import {
+  getBanners,
+  getBlogsByQuery,
+  getCategories,
+  getPopularArticles,
+} from '../../utils/BlogService';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -90,23 +96,10 @@ const Index: NextPage<IndexProps> = (props) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const query = context.query.q;
-  console.log(query);
-  const blogs = (await axios.get(`${config.siteRoot}/api/search?q=${query}`)).data;
-  const categories = (
-    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/categories`, {
-      headers: { 'X-API-KEY': config.apiKey },
-    })
-  ).data;
-  const popularArticles = (
-    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/popular-articles`, {
-      headers: { 'X-API-KEY': config.apiKey },
-    })
-  ).data;
-  const banner = (
-    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/banner`, {
-      headers: { 'X-API-KEY': config.apiKey },
-    })
-  ).data;
+  const blogs = await getBlogsByQuery(query as string);
+  const categories = await getCategories();
+  const popularArticles = await getPopularArticles();
+  const banner = await getBanners();
   return {
     props: {
       blogs: blogs,
