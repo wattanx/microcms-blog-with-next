@@ -1,39 +1,40 @@
-import { GetStaticPropsContext, NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
-import { Banner } from '../components/Banner';
-import { BreadCrumb } from '../components/BreadCrumb';
-import { Categories } from '../components/Categories';
-import { Meta } from '../components/Meta';
-import { Pager } from '../components/Pager';
-import { PopularArticle } from '../components/PopularArticle';
-import { Search } from '../components/Search';
+import { Banner } from '../../../../components/Banner';
+import { BreadCrumb } from '../../../../components/BreadCrumb';
+import { Categories } from '../../../../components/Categories';
+import { Meta } from '../../../../components/Meta';
+import { Pager } from '../../../../components/Pager';
+import { PopularArticle } from '../../../../components/PopularArticle';
+import { Search } from '../../../../components/Search';
 import {
   IBanner,
   IBlog,
   ICategory,
   IPopularArticles,
   MicroCmsResponse,
-} from '../interfaces/interface';
+} from '../../../../interfaces/interface';
 import {
   getBanners,
   getBlogsByCategory,
   getCategories,
   getPopularArticles,
-} from '../utils/BlogService';
+} from '../../../../utils/BlogService';
 
-type IndexProps = {
+type PageProps = {
   blogs: MicroCmsResponse<IBlog>;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
   banner: IBanner;
   pager: [];
+  selectedCategory: ICategory;
 };
 
-const Index: NextPage<IndexProps> = (props) => {
+const Page: NextPage<PageProps> = (props) => {
   return (
     <div className="divider">
       <div className="container">
-        <BreadCrumb />
+        <BreadCrumb category={props.selectedCategory} />
         {props.blogs.contents.length === 0 && <>記事がありません</>}
         <ul>
           {props.blogs.contents.map((blog) => {
@@ -66,7 +67,7 @@ const Index: NextPage<IndexProps> = (props) => {
         </ul>
         {props.blogs.contents.length > 0 && (
           <ul className="pager">
-            <Pager pager={props.pager} />
+            <Pager pager={props.pager} selectedCategory={props.selectedCategory} />
           </ul>
         )}
       </div>
@@ -80,23 +81,30 @@ const Index: NextPage<IndexProps> = (props) => {
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const page: any = context.params || '1';
-  const categoryId: any = context.params;
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const page: any = context.params.id || '1';
+  const categoryId = context.params.categoryId;
+
   const limit: number = 10;
-  const blogs = await getBlogsByCategory(limit, categoryId, page);
+  const blogs = await getBlogsByCategory(limit, categoryId as string, page);
   const categories = await getCategories();
   const popularArticles = await getPopularArticles();
+  const selectedCategory =
+    categoryId !== undefined
+      ? categories.contents.find((content) => content.id === categoryId)
+      : undefined;
+
   const banner = await getBanners();
+
   return {
     props: {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
-      pager: [...Array(Math.ceil(blogs.totalCount / 10)).keys()],
       banner: banner,
+      pager: [...Array(Math.ceil(blogs.totalCount / 10)).keys()],
+      selectedCategory: selectedCategory,
     },
   };
 }
-
-export default Index;
+export default Page;
