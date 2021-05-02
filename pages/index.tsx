@@ -27,25 +27,27 @@ const Index: NextPage<IndexProps> = (props) => {
           {props.blogs.contents.map((blog) => {
             return (
               <li key={blog.id} className="list">
-                <a href={`/${blog.id}`} className="link">
-                  <>
-                    {blog.ogimage && (
-                      <picture>
-                        <img src={`${blog.ogimage.url}?w=670`} className="ogimage lazyload" />
-                      </picture>
-                    )}
-                    <dl className="content">
-                      <dt className="title">{blog.title}</dt>
-                      <dd>
-                        <Meta
-                          createdAt={blog.createdAt}
-                          author={blog.writer}
-                          category={blog.category}
-                        />
-                      </dd>
-                    </dl>
-                  </>
-                </a>
+                <Link href="/[blogId]" as={`/${blog.id}`}>
+                  <a className="link">
+                    <>
+                      {blog.ogimage && (
+                        <picture>
+                          <img src={`${blog.ogimage.url}?w=670`} className="ogimage lazyload" />
+                        </picture>
+                      )}
+                      <dl className="content">
+                        <dt className="title">{blog.title}</dt>
+                        <dd>
+                          <Meta
+                            createdAt={blog.createdAt}
+                            author={blog.writer}
+                            category={blog.category}
+                          />
+                        </dd>
+                      </dl>
+                    </>
+                  </a>
+                </Link>
               </li>
             );
           })}
@@ -87,10 +89,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       headers: { 'X-API-KEY': config.apiKey },
     })
   ).data;
-  const selectedCategory =
-    categoryId !== undefined
-      ? categories.contents.find((content) => content.id === categoryId)
-      : undefined;
   return {
     props: {
       blogs: blogs,

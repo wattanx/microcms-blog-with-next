@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GetServerSidePropsContext, GetStaticPropsContext, NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { BreadCrumb } from '../../../../components/BreadCrumb';
 import { Categories } from '../../../../components/Categories';
@@ -33,32 +33,34 @@ const Page: NextPage<PageProps> = (props) => {
           {props.blogs.contents.map((blog) => {
             return (
               <li key={blog.id} className="list">
-                <a href={`/${blog.id}`} className="link">
-                  <>
-                    {blog.ogimage && (
-                      <picture>
-                        <img src={`${blog.ogimage.url}?w=670`} className="ogimage lazyload" />
-                      </picture>
-                    )}
-                    <dl className="content">
-                      <dt className="title">{blog.title}</dt>
-                      <dd>
-                        <Meta
-                          createdAt={blog.createdAt}
-                          author={blog.writer}
-                          category={blog.category}
-                        />
-                      </dd>
-                    </dl>
-                  </>
-                </a>
+                <Link href="/[blogId]" as={`/${blog.id}`}>
+                  <a className="link">
+                    <>
+                      {blog.ogimage && (
+                        <picture>
+                          <img src={`${blog.ogimage.url}?w=670`} className="ogimage lazyload" />
+                        </picture>
+                      )}
+                      <dl className="content">
+                        <dt className="title">{blog.title}</dt>
+                        <dd>
+                          <Meta
+                            createdAt={blog.createdAt}
+                            author={blog.writer}
+                            category={blog.category}
+                          />
+                        </dd>
+                      </dl>
+                    </>
+                  </a>
+                </Link>
               </li>
             );
           })}
         </ul>
         {props.blogs.contents.length > 0 && (
           <ul className="pager">
-            <Pager pager={props.pager} />
+            <Pager pager={props.pager} selectedCategory={props.selectedCategory} />
           </ul>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { IBlog, ICategory } from '../interfaces/interface';
+import { ICategory } from '../interfaces/interface';
 import styles from '../styles/components/Pager.module.scss';
 
 type PagerProps = {
@@ -14,9 +14,7 @@ export const Pager: React.FC<PagerProps> = (props) => {
           <li className={`${styles.page}`} key={index}>
             <a
               href={`/${
-                props.selectedCategory !== undefined
-                  ? `category/>${props.selectedCategory.id}/`
-                  : ''
+                props.selectedCategory !== undefined ? `category/${props.selectedCategory.id}/` : ''
               }page/${page + 1}`}
             >
               {page + 1}
