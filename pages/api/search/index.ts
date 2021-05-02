@@ -8,9 +8,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(400).json({ error: `missing queryparamaeter` });
   }
 
-  return axios.get(`https://${config.serviceId}.microcms.io/api/v1/blog?q=${encodeURIComponent(query)}`, 
-    { 
-      headers: { 'X-API-KEY': config.apiKey } 
+  return axios
+    .get(`https://${config.serviceId}.microcms.io/api/v1/blog?q=${encodeURIComponent(query)}`, {
+      headers: { 'X-API-KEY': config.apiKey },
     })
     .then(({ data }) => {
       res.status(200).json(data);
@@ -18,7 +18,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     .catch((error) => {
       res.status(500).json(error);
     });
+};
 
-}
-
-export default handler
+export default handler;

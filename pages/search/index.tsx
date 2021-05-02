@@ -15,51 +15,57 @@ type IndexProps = {
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
   query: string;
-}
+};
 
 const Index: NextPage<IndexProps> = (props) => {
-    const [searchValue, setSearchValue] = useState<string>(props.query);
-    const [blogs, setBlogs] = useState<MicroCmsResponse<IBlog>>(props.blogs);
+  const [searchValue, setSearchValue] = useState<string>(props.query);
+  const [blogs, setBlogs] = useState<MicroCmsResponse<IBlog>>(props.blogs);
 
-    const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            const data = (await axios.get(`/api/search?q=${e.currentTarget.value}`)).data;
-            console.log(data);
-            setBlogs(data);
-        }
+  const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const data = (await axios.get(`/api/search?q=${e.currentTarget.value}`)).data;
+      console.log(data);
+      setBlogs(data);
     }
+  };
 
   return (
     <div className="divider">
       <div className="container">
-        <input value={searchValue} className={styles.search} type="text" onChange={(e) => setSearchValue(e.target.value)} onKeyPress={(e) => onEnterKeyEvent(e)} />
+        <input
+          value={searchValue}
+          className={styles.search}
+          type="text"
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyPress={(e) => onEnterKeyEvent(e)}
+        />
         <BreadCrumb />
-        {blogs.contents.length === 0 &&
-          (<>記事がありません</>)
-        }
+        {blogs.contents.length === 0 && <>記事がありません</>}
         <ul>
-          {blogs.contents.map(blog => {
+          {blogs.contents.map((blog) => {
             return (
               <li key={blog.id} className="list">
                 <a href={`/${blog.id}`} className="link">
                   <>
-                    {blog.ogimage &&
-                      (<picture>
+                    {blog.ogimage && (
+                      <picture>
                         <img src={`${blog.ogimage.url}?w=670`} className="ogimage lazyload" />
                       </picture>
-                      )
-                    }
+                    )}
                     <dl className="content">
                       <dt className="title">{blog.title}</dt>
                       <dd>
-                        <Meta createdAt={blog.createdAt} author={blog.writer} category={blog.category}/>
+                        <Meta
+                          createdAt={blog.createdAt}
+                          author={blog.writer}
+                          category={blog.category}
+                        />
                       </dd>
                     </dl>
                   </>
-                  
                 </a>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
@@ -68,22 +74,30 @@ const Index: NextPage<IndexProps> = (props) => {
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
     </div>
-  )
-}
+  );
+};
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const query = context.query.q;
   console.log(query);
   const blogs = (await axios.get(`${config.siteRoot}/api/search?q=${query}`)).data;
-  const categories = (await axios.get(`https://${config.serviceId}.microcms.io/api/v1/categories`, { headers: { 'X-API-KEY': config.apiKey } })).data;
-  const popularArticles = (await axios.get(`https://${config.serviceId}.microcms.io/api/v1/popular-articles`, { headers: { 'X-API-KEY': config.apiKey } })).data;
+  const categories = (
+    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/categories`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
+  const popularArticles = (
+    await axios.get(`https://${config.serviceId}.microcms.io/api/v1/popular-articles`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
   return {
     props: {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
-      query: query
-    }
+      query: query,
+    },
   };
 }
 
