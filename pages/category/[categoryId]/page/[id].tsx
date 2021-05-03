@@ -86,7 +86,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const categoryId = context.params?.categoryId;
 
   const limit: number = 10;
-  const blogs = await getBlogsByCategory(limit, categoryId as string, page);
+  const blogs = await getBlogsByCategory(limit, page, categoryId as string);
   const categories = await getCategories();
   const popularArticles = await getPopularArticles();
   const selectedCategory =

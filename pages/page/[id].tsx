@@ -82,9 +82,8 @@ const Page: NextPage<PageProps> = (props) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const page: any = context.params?.id || '1';
-  const categoryId: any = context.params;
   const limit: number = 10;
-  const blogs = await getBlogsByCategory(limit, categoryId, page);
+  const blogs = await getBlogsByCategory(limit, page);
   const categories = await getCategories();
   const popularArticles = await getPopularArticles();
   const banner = await getBanners();

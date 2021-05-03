@@ -11,8 +11,8 @@ const apiRoot: string = `https://${config.serviceId}.microcms.io/api/v1`;
 
 export async function getBlogsByCategory(
   limit: number,
-  categoryId: string,
   page: number,
+  categoryId?: string,
 ): Promise<MicroCmsResponse<IBlog>> {
   return (
     await axios.get(
@@ -33,7 +33,7 @@ export async function getBlogById(blogId: string): Promise<IBlog> {
 }
 
 export async function getBlogsByQuery(query: string): Promise<MicroCmsResponse<IBlog>> {
-  return (await axios.get(`/api/search?q=${query}`)).data;
+  return (await axios.get(`${config.siteRoot}/api/search?q=${query}`)).data;
 }
 
 export async function getCategories(): Promise<MicroCmsResponse<ICategory>> {
