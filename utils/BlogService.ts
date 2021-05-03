@@ -11,8 +11,8 @@ const apiRoot: string = `https://${config.serviceId}.microcms.io/api/v1`;
 
 export async function getBlogsByCategory(
   limit: number,
-  categoryId: string,
   page: number,
+  categoryId?: string,
 ): Promise<MicroCmsResponse<IBlog>> {
   return (
     await axios.get(
