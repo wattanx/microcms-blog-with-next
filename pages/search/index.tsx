@@ -36,7 +36,7 @@ const Index: NextPage<IndexProps> = (props) => {
   const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       const data = await getBlogsByQuery(e.currentTarget.value);
-      
+
       setBlogs(data);
     }
   };
