@@ -3,9 +3,9 @@ export const config = {
     title: 'microcms-blog-with-next',
     description: 'microCMS×Next.jsのブログテンプレートです',
   },
-  siteRoot:
+  baseUrl:
     process.env.NODE_ENV === 'production'
-      ? process.env.NEXT_PUBLIC_SITEROOT
+      ? process.env.NEXT_PUBLIC_BASEURL
       : 'http://localhost:3000',
   apiKey: process.env.MICROCMS_APIKEY,
   serviceId: process.env.SERVICE_ID,

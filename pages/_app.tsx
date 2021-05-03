@@ -7,8 +7,7 @@ import '../styles/globals.scss';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const title = config.siteMeta.title;
-  const pageUrl =
-    process.env.NODE_ENV === 'production' ? process.env.BASEURL : 'http://localhost:3000';
+  const pageUrl = config.baseUrl;
   const description = config.siteMeta.description;
   return (
     <>
@@ -16,7 +15,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <title>{title}</title>
         <meta property="og:title" content={title} />
         <meta property="og:url" content={pageUrl} />
-        <meta property="og:site" content={config.siteMeta.title} />
+        <meta property="og:site" content={title} />
         <meta />
         {!!description && (
           <>
