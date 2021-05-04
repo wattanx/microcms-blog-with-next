@@ -5,7 +5,9 @@ import { BreadCrumb } from '../components/BreadCrumb';
 import { Categories } from '../components/Categories';
 import { Loader } from '../components/Loader';
 import { PopularArticle } from '../components/PopularArticle';
+import { Post } from '../components/Post';
 import { Search } from '../components/Search';
+import { Share } from '../components/Share';
 import {
   IBanner,
   IBlog,
@@ -38,7 +40,12 @@ const Detail: NextPage<DetailProps> = (props) => {
         </div>
         <BreadCrumb category={props.blogs.category} />
         <div className={styles.main}>
-          <h1 className={styles.title}>{props.blogs.title}</h1>
+          <Share id={props.blogs.id} title={props.blogs.title}/>
+          <div className={styles.container}>
+            <h1 className={styles.title}>{props.blogs.title}</h1>
+            <Post body={props.blogs.body}/>
+          </div>
+          
         </div>
       </article>
       <aside className="aside">
