@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { BreadCrumb } from '../../components/BreadCrumb';
 import { Categories } from '../../components/Categories';
@@ -20,6 +20,8 @@ import {
   getCategories,
   getPopularArticles,
 } from '../../utils/BlogService';
+import { useRouter } from 'next/dist/client/router';
+import { Loader } from '../../components/Loader';
 
 type PageProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -30,6 +32,10 @@ type PageProps = {
 };
 
 const Page: NextPage<PageProps> = (props) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <Loader />
+  }
   return (
     <div className="divider">
       <div className="container">
@@ -80,7 +86,13 @@ const Page: NextPage<PageProps> = (props) => {
   );
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticPaths() {
+  return {
+    paths: [], fallback: true
+  }
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const limit: number = 10;
   const blogs = await getBlogsByCategory(limit, page);

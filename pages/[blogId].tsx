@@ -1,7 +1,9 @@
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
+import { useRouter } from 'next/dist/client/router';
 import { Banner } from '../components/Banner';
 import { BreadCrumb } from '../components/BreadCrumb';
 import { Categories } from '../components/Categories';
+import { Loader } from '../components/Loader';
 import { PopularArticle } from '../components/PopularArticle';
 import { Search } from '../components/Search';
 import {
@@ -22,6 +24,10 @@ type DetailProps = {
 };
 
 const Detail: NextPage<DetailProps> = (props) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <Loader />
+  }
   return (
     <div className={styles.divider}>
       <article className={styles.article}>
@@ -45,7 +51,13 @@ const Detail: NextPage<DetailProps> = (props) => {
   );
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticPaths() {
+  return {
+    paths: [], fallback: true
+  }
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
   const blogId: any = context.params?.blogId || '1';
   const blogs = await getBlogById(blogId);
   const categories = await getCategories();
