@@ -1,8 +1,10 @@
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
+import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
 import { Banner } from '../../../../components/Banner';
 import { BreadCrumb } from '../../../../components/BreadCrumb';
 import { Categories } from '../../../../components/Categories';
+import { Loader } from '../../../../components/Loader';
 import { Meta } from '../../../../components/Meta';
 import { Pager } from '../../../../components/Pager';
 import { PopularArticle } from '../../../../components/PopularArticle';
@@ -31,6 +33,10 @@ type PageProps = {
 };
 
 const Page: NextPage<PageProps> = (props) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <Loader />
+  }
   return (
     <div className="divider">
       <div className="container">
@@ -81,7 +87,13 @@ const Page: NextPage<PageProps> = (props) => {
   );
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticPaths() {
+  return {
+    paths: [], fallback: true
+  }
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const categoryId = context.params?.categoryId;
 
