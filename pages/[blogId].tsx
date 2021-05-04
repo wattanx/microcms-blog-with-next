@@ -3,11 +3,14 @@ import { useRouter } from 'next/dist/client/router';
 import { Banner } from '../components/Banner';
 import { BreadCrumb } from '../components/BreadCrumb';
 import { Categories } from '../components/Categories';
+import { Latest } from '../components/Latest';
 import { Loader } from '../components/Loader';
+import { Meta } from '../components/Meta';
 import { PopularArticle } from '../components/PopularArticle';
 import { Post } from '../components/Post';
 import { Search } from '../components/Search';
 import { Share } from '../components/Share';
+import { Toc } from '../components/Toc';
 import {
   IBanner,
   IBlog,
@@ -16,10 +19,11 @@ import {
   MicroCmsResponse,
 } from '../interfaces/interface';
 import styles from '../styles/Detail.module.scss';
-import { getBanners, getBlogById, getCategories, getPopularArticles } from '../utils/BlogService';
+import { getAllBlogs, getBanners, getBlogById, getCategories, getPopularArticles } from '../utils/BlogService';
 
 type DetailProps = {
-  blogs: IBlog;
+  blog: IBlog;
+  blogs: MicroCmsResponse<IBlog>;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
   banner: IBanner;
@@ -35,15 +39,19 @@ const Detail: NextPage<DetailProps> = (props) => {
       <article className={styles.article}>
         <div className={styles.ogimageWrap}>
           <picture>
-            <img src={`${props.blogs.ogimage?.url}?w=820&q=100`} className={styles.ogimage} />
+            <img src={`${props.blog.ogimage?.url}?w=820&q=100`} className={styles.ogimage} />
           </picture>
         </div>
-        <BreadCrumb category={props.blogs.category} />
+        <BreadCrumb category={props.blog.category} />
         <div className={styles.main}>
-          <Share id={props.blogs.id} title={props.blogs.title}/>
+          <Share id={props.blog.id} title={props.blog.title}/>
           <div className={styles.container}>
-            <h1 className={styles.title}>{props.blogs.title}</h1>
-            <Post body={props.blogs.body}/>
+            <h1 className={styles.title}>{props.blog.title}</h1>
+            <Meta author={props.blog.writer} category={props.blog.category} createdAt={props.blog.createdAt} />
+            {props.blog.toc_visible && (
+              <Toc body={props.blog.body ?? ''}/>
+            )}
+            <Post body={props.blog.body}/>
           </div>
           
         </div>
@@ -53,6 +61,7 @@ const Detail: NextPage<DetailProps> = (props) => {
         <Search />
         <Categories categories={props.categories.contents} />
         <PopularArticle blogs={props.popularArticles.articles} />
+        <Latest blogs={props.blogs.contents}/>
       </aside>
     </div>
   );
@@ -66,12 +75,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const blogId: any = context.params?.blogId || '1';
-  const blogs = await getBlogById(blogId);
+  const blog = await getBlogById(blogId);
+  const blogs = await getAllBlogs();
   const categories = await getCategories();
   const popularArticles = await getPopularArticles();
   const banner = await getBanners();
   return {
     props: {
+      blog: blog,
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
