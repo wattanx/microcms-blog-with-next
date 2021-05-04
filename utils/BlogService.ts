@@ -9,6 +9,14 @@ import {
 import { config } from '../site.config';
 const apiRoot: string = `https://${config.serviceId}.microcms.io/api/v1`;
 
+export async function getAllBlogs(): Promise<MicroCmsResponse<IBlog>> {
+  return (
+    await axios.get(`${apiRoot}/blog`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
+}
+
 export async function getBlogsByCategory(
   limit: number,
   page: number,

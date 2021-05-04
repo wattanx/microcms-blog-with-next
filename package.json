@@ -9,9 +9,13 @@
     "format": "prettier --write **/*.{tsx,ts}"
   },
   "dependencies": {
+    "@types/dompurify": "^2.2.2",
+    "@types/react-scroll": "^1.8.2",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "axios": "^0.21.1",
+    "dayjs": "^1.10.4",
+    "dompurify": "^2.2.8",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
@@ -19,6 +23,7 @@
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-scroll": "^1.8.2",
     "sass": "^1.32.8"
   },
   "devDependencies": {
