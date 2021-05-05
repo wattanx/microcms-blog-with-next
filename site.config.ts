@@ -1,7 +1,7 @@
 export const config = {
   siteMeta: {
     title: 'microcms-blog-with-next',
-    description: 'microCMS×Next.jsのブログテンプレートです',
+    description: 'microCMSのNext.js版です',
   },
   baseUrl:
     process.env.NODE_ENV === 'production'
