@@ -69,7 +69,9 @@ const Detail: NextPage<DetailProps> = (props) => {
 
 export async function getStaticPaths() {
   const blogs = await getAllBlogs();
-  const ids = blogs.contents.map(blog => blog.id);
+  const ids = blogs.contents.map(blog => {
+    return { blogId: blog.id }
+  });
   return {
     paths: ids, fallback: true
   }
