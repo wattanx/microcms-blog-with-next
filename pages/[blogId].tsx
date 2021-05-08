@@ -19,7 +19,7 @@ import {
   MicroCmsResponse,
 } from '../interfaces/interface';
 import styles from '../styles/Detail.module.scss';
-import { getAllBlogs, getBanners, getBlogById, getCategories, getPopularArticles } from '../utils/BlogService';
+import { getAllBlogs, getBanners, getBlogById, getBlogs, getCategories, getPopularArticles } from '../utils/BlogService';
 
 type DetailProps = {
   blog: IBlog;
@@ -79,8 +79,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const blogId: any = context.params?.blogId || '1';
+  const limit: number = 10;
   const blog = await getBlogById(blogId);
-  const blogs = await getAllBlogs();
+  const blogs = await getBlogs(limit);
   const categories = await getCategories();
   const popularArticles = await getPopularArticles();
   const banner = await getBanners();
