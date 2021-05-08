@@ -11,7 +11,15 @@ const apiRoot: string = `https://${config.serviceId}.microcms.io/api/v1`;
 
 export async function getAllBlogs(): Promise<MicroCmsResponse<IBlog>> {
   return (
-    await axios.get(`${apiRoot}/blog`, {
+    await axios.get(`${apiRoot}/blog?limit=${config.defaultMaxLimit}`, {
+      headers: { 'X-API-KEY': config.apiKey },
+    })
+  ).data;
+}
+
+export async function getBlogs(limit: number): Promise<MicroCmsResponse<IBlog>> {
+  return (
+    await axios.get(`${apiRoot}/blog?limit=${limit}`, {
       headers: { 'X-API-KEY': config.apiKey },
     })
   ).data;
