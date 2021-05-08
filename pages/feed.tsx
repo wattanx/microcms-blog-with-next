@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext } from "next";
 import { generateFeedXml } from "../utils/RssUtil";
-const Feed = () => null;
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     const xml = await generateFeedXml();
@@ -14,4 +13,5 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
     };
 };
 
+const Feed = () => null;
 export default Feed;
