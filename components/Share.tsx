@@ -10,6 +10,7 @@ export const Share: React.FC<ShareProps> = (props) => {
     const twitterLink: string = `https://twitter.com/intent/tweet?text=${props.title}&url=${config.baseUrl}/${props.id}/&hashtags=microcms`;
     const facebookLink: string = `https://www.facebook.com/sharer.php?u=${config.baseUrl}/${props.id}/`;
     const hatenaLink: string = `https://b.hatena.ne.jp/entry/${config.baseUrl}/${props.id}/`;
+    const feedLink: string = `${config.baseUrl}/feed`;
     return (
         <div className={styles.share}>
             <ul className={styles.shareLists}>
@@ -26,6 +27,11 @@ export const Share: React.FC<ShareProps> = (props) => {
                 <li className={styles.shareList}>
                     <a href={hatenaLink} target="_blank" rel="noopener noreferrer">
                         <img src="/images/icon_hatena.svg" alt="はてなブックマーク" />
+                    </a>
+                </li>
+                <li className={styles.shareList}>
+                    <a href={feedLink} target="_blank" rel="noopener noreferrer">
+                        <img src="/images/icon_feed.svg" alt="フィード" />
                     </a>
                 </li>
             </ul>
