@@ -102,6 +102,7 @@ type: オブジェクト形式
 - MICROCMS_APIKEY（microCMS の API キー）
 - SERVICE_ID（microCMS のサービス ID）
 - NEXT_PUBLIC_BASEURL（ベースとなる URL、API Routes で使用します）
+- NEXT_PUBLIC_GOOGLE_ANALYTICS_ID (Google Analytics の ID)
 
 例:
 
@@ -109,6 +110,7 @@ type: オブジェクト形式
 MICROCMS_APIKEY=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 SERVICE_ID=your-service-id
 NEXT_PUBLIC_BASEURL=hogehoge
+NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=hogehoge
 ```
 
 ## 開発方法
