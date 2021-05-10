@@ -23,14 +23,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <meta property="og:description" content={description} />
           </>
         )}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap"
-        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async></script>
       </Head>
       <div className="wrapper">
         <Header />
