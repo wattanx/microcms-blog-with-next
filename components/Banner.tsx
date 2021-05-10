@@ -16,9 +16,10 @@ export const Banner: React.FC<BannerProps> = (props) => {
         }
       >
         <picture>
+          <source type="image/webp" srcSet={`${props.banner.image.url}?w=300&fm=webp,${props.banner.image.url}?w=600&fm=webp 2x`} />
           <img
             src={props.banner?.image?.url}
-            className={`${styles.image} ${styles.lazyload}`}
+            className={`${styles.image} lazyload`}
             alt={props.banner?.alt}
           />
         </picture>

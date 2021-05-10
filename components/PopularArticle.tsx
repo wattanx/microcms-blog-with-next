@@ -15,9 +15,10 @@ export const PopularArticle: React.FC<PopularArticleProps> = (props) => {
             <li className={styles.list} key={blog.id}>
               <a href={`/${blog.id}`} className={styles.link}>
                 <picture>
+                  <source type="image/webp" data-srcset={`${blog.ogimage.url}?w=560&fm=webp`} />
                   <img
-                    src={`${blog.ogimage?.url}?w=560&q=100`}
-                    className={`${styles.image} ${styles.lazyload}`}
+                    data-src={`${blog.ogimage?.url}?w=560&q=100`}
+                    className={`${styles.image} lazyload`}
                   />
                 </picture>
                 <p className={styles.title}>{blog.title}</p>

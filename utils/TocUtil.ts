@@ -1,12 +1,20 @@
-export function ConvertToHtml(str: string): Element {
-    const tempElment = document.createElement('div');
-    tempElment.innerHTML = str;
-    return tempElment;
+import { JSDOM } from 'jsdom';
+
+export type TocTypes = {
+    text: string;
+    id: string;
+    name: string;
 }
 
-export function AddList(list: any[], items: NodeListOf<HTMLHeadElement>): any[] {
-    for (let i = 0; items.length > i; i++) {
-        list.push(items.item(i));
-    }
-    return list;
-}
+export function convertToToc(htmlString: string): TocTypes[] {
+    const dom = new JSDOM(htmlString);
+    const toc: TocTypes[] = [];
+    dom.window.document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
+        toc.push({
+            id: heading.id,
+            name: heading.tagName,
+            text: heading.textContent
+        });
+    });
+    return toc;;
+};
