@@ -16,12 +16,7 @@ import {
   IPopularArticles,
   MicroCmsResponse,
 } from '../../../../interfaces/interface';
-import {
-  getBanners,
-  getBlogsByCategory,
-  getCategories,
-  getPopularArticles,
-} from '../../../../utils/BlogService';
+import { IBlogService, BlogService } from '../../../../utils/BlogService';
 
 type PageProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -98,15 +93,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const categoryId = context.params?.categoryId;
 
   const limit: number = 10;
-  const blogs = await getBlogsByCategory(limit, page, categoryId as string);
-  const categories = await getCategories();
-  const popularArticles = await getPopularArticles();
+  const service: IBlogService = new BlogService()
+  const blogs = await service.getBlogsByCategory(limit, page, categoryId as string);
+  const categories = await service.getCategories();
+  const popularArticles = await service.getPopularArticles();
   const selectedCategory =
     categoryId !== undefined
       ? categories.contents.find((content) => content.id === categoryId)
       : undefined;
 
-  const banner = await getBanners();
+  const banner = await service.getBanners();
 
   return {
     props: {
