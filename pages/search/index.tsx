@@ -14,12 +14,7 @@ import {
   MicroCmsResponse,
 } from '../../interfaces/interface';
 import styles from '../../styles/SearchPage.module.scss';
-import {
-  getBanners,
-  getBlogsByQuery,
-  getCategories,
-  getPopularArticles,
-} from '../../utils/BlogService';
+import { IBlogService, BlogService } from '../../utils/BlogService';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -34,9 +29,9 @@ const Index: NextPage<IndexProps> = (props) => {
   const [blogs, setBlogs] = useState<MicroCmsResponse<IBlog>>(props.blogs);
 
   const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.value) { return; }
+    if (!e.currentTarget.value.trim()) { return; }
     if (e.key === 'Enter') {
-      const data = await getBlogsByQuery(e.currentTarget.value);
+      const data = await new BlogService().getBlogsByQuery(e.currentTarget.value);
 
       setBlogs(data);
     }
@@ -95,10 +90,11 @@ const Index: NextPage<IndexProps> = (props) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const query = context.query.q;
-  const blogs = await getBlogsByQuery(query as string);
-  const categories = await getCategories();
-  const popularArticles = await getPopularArticles();
-  const banner = await getBanners();
+  const service: IBlogService = new BlogService();
+  const blogs = await service.getBlogsByQuery(query as string);
+  const categories = await service.getCategories();
+  const popularArticles = await service.getPopularArticles();
+  const banner = await service.getBanners();
   return {
     props: {
       blogs: blogs,

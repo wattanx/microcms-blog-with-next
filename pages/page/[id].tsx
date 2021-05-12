@@ -14,12 +14,7 @@ import {
   MicroCmsResponse,
 } from '../..//interfaces/interface';
 import { Banner } from '../../components/Banner';
-import {
-  getBanners,
-  getBlogsByCategory,
-  getCategories,
-  getPopularArticles,
-} from '../../utils/BlogService';
+import { IBlogService, BlogService } from '../../utils/BlogService';
 import { useRouter } from 'next/dist/client/router';
 import { Loader } from '../../components/Loader';
 
@@ -95,10 +90,11 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const limit: number = 10;
-  const blogs = await getBlogsByCategory(limit, page);
-  const categories = await getCategories();
-  const popularArticles = await getPopularArticles();
-  const banner = await getBanners();
+  const service: IBlogService = new BlogService();
+  const blogs = await service.getBlogsByCategory(limit, page);
+  const categories = await service.getCategories();
+  const popularArticles = await service.getPopularArticles();
+  const banner = await service.getBanners();
   return {
     props: {
       blogs: blogs,

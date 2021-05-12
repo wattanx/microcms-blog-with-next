@@ -5,7 +5,7 @@ export const Search: React.FC = () => {
   const router = useRouter();
 
   const onEnterKeyEvent = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.value) { return; }
+    if (!e.currentTarget.value.trim()) { return; }
     if (e.key === 'Enter') {
       router.push(`/search?q=${e.currentTarget.value}`);
     }
