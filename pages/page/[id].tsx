@@ -29,7 +29,7 @@ type PageProps = {
 const Page: NextPage<PageProps> = (props) => {
   const router = useRouter();
   if (router.isFallback) {
-    return <Loader />
+    return <Loader />;
   }
   return (
     <div className="divider">
@@ -83,8 +83,9 @@ const Page: NextPage<PageProps> = (props) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [], fallback: true
-  }
+    paths: [],
+    fallback: true,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {

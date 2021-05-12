@@ -30,7 +30,7 @@ type PageProps = {
 const Page: NextPage<PageProps> = (props) => {
   const router = useRouter();
   if (router.isFallback) {
-    return <Loader />
+    return <Loader />;
   }
   return (
     <div className="divider">
@@ -84,8 +84,9 @@ const Page: NextPage<PageProps> = (props) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [], fallback: true
-  }
+    paths: [],
+    fallback: true,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -93,7 +94,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const categoryId = context.params?.categoryId;
 
   const limit: number = 10;
-  const service: IBlogService = new BlogService()
+  const service: IBlogService = new BlogService();
   const blogs = await service.getBlogsByCategory(limit, page, categoryId as string);
   const categories = await service.getCategories();
   const popularArticles = await service.getPopularArticles();
