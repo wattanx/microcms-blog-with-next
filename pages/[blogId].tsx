@@ -25,8 +25,8 @@ import { convertToHtml } from '../utils/PostsUtil';
 
 type DetailProps = {
   blog: IBlog;
-  body: string,
-  toc: TocTypes[],
+  body: string;
+  toc: TocTypes[];
   blogs: MicroCmsResponse<IBlog>;
   categories: MicroCmsResponse<ICategory>;
   popularArticles: IPopularArticles;
@@ -36,32 +36,49 @@ type DetailProps = {
 const Detail: NextPage<DetailProps> = (props) => {
   const router = useRouter();
   if (router.isFallback) {
-    return <Loader />
+    return <Loader />;
   }
   return (
     <div className={styles.divider}>
       <article className={styles.article}>
         <div className={styles.ogimageWrap}>
           <picture>
-            <source media="(min-width: 1160px)" type="image/webp" srcSet={`${props.blog.ogimage.url}?w=820&fm=webp, ${props.blog.ogimage.url}?w=1640&fm=webp 2x`} />
-            <source media="(min-width: 820px)" type="image/webp" srcSet={`${props.blog.ogimage.url}?w=740&fm=webp, ${props.blog.ogimage.url}?w=1480&fm=webp 2x`} />
-            <source media="(min-width: 768px)" type="image/webp" srcSet={`${props.blog.ogimage.url}?w=728&fm=webp, ${props.blog.ogimage.url}?w=1456&fm=webp 2x`} />
-            <source media="(min-width: 768px)" type="image/webp" srcSet={`${props.blog.ogimage.url}?w=375&fm=webp, ${props.blog.ogimage.url}?w=750&fm=webp 2x`} />
+            <source
+              media="(min-width: 1160px)"
+              type="image/webp"
+              srcSet={`${props.blog.ogimage.url}?w=820&fm=webp, ${props.blog.ogimage.url}?w=1640&fm=webp 2x`}
+            />
+            <source
+              media="(min-width: 820px)"
+              type="image/webp"
+              srcSet={`${props.blog.ogimage.url}?w=740&fm=webp, ${props.blog.ogimage.url}?w=1480&fm=webp 2x`}
+            />
+            <source
+              media="(min-width: 768px)"
+              type="image/webp"
+              srcSet={`${props.blog.ogimage.url}?w=728&fm=webp, ${props.blog.ogimage.url}?w=1456&fm=webp 2x`}
+            />
+            <source
+              media="(min-width: 768px)"
+              type="image/webp"
+              srcSet={`${props.blog.ogimage.url}?w=375&fm=webp, ${props.blog.ogimage.url}?w=750&fm=webp 2x`}
+            />
             <img src={`${props.blog.ogimage?.url}?w=820&q=100`} className={styles.ogimage} />
           </picture>
         </div>
         <BreadCrumb category={props.blog.category} />
         <div className={styles.main}>
-          <Share id={props.blog.id} title={props.blog.title}/>
+          <Share id={props.blog.id} title={props.blog.title} />
           <div className={styles.container}>
             <h1 className={styles.title}>{props.blog.title}</h1>
-            <Meta author={props.blog.writer} category={props.blog.category} createdAt={props.blog.createdAt} />
-            {props.blog.toc_visible && (
-              <Toc toc={props.toc} />
-            )}
-            <Post body={props.body}/>
+            <Meta
+              author={props.blog.writer}
+              category={props.blog.category}
+              createdAt={props.blog.createdAt}
+            />
+            {props.blog.toc_visible && <Toc toc={props.toc} />}
+            <Post body={props.body} />
           </div>
-          
         </div>
       </article>
       <aside className="aside">
@@ -69,7 +86,7 @@ const Detail: NextPage<DetailProps> = (props) => {
         <Search />
         <Categories categories={props.categories.contents} />
         <PopularArticle blogs={props.popularArticles.articles} />
-        <Latest blogs={props.blogs.contents}/>
+        <Latest blogs={props.blogs.contents} />
       </aside>
     </div>
   );
@@ -78,12 +95,13 @@ const Detail: NextPage<DetailProps> = (props) => {
 export async function getStaticPaths() {
   const service: IBlogService = new BlogService();
   const blogs = await service.getAllBlogs();
-  const ids = blogs.contents.map(blog => {
-    return { params: { blogId: blog.id } }
+  const ids = blogs.contents.map((blog) => {
+    return { params: { blogId: blog.id } };
   });
   return {
-    paths: ids, fallback: true
-  }
+    paths: ids,
+    fallback: true,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {

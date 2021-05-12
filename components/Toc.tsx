@@ -3,24 +3,23 @@ import { Link } from 'react-scroll';
 import { TocTypes } from '../utils/TocUtil';
 
 type TocProps = {
-    toc: TocTypes[]; 
-
-}
+  toc: TocTypes[];
+};
 
 export const Toc: React.FC<TocProps> = (props) => {
-    return (
-        <div className={styles.wrapper}>
-            <h4 className={styles.title}>
-                <ul className={styles.lists}>
-                    {props.toc.map((x) => {
-                        return (
-                            <li key={x.id} className={`${styles.list} ${x.name}`}>
-                                <Link to={`${x.id}`}>{x.text}</Link>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </h4>
-        </div>
-    );
-}
+  return (
+    <div className={styles.wrapper}>
+      <h4 className={styles.title}>
+        <ul className={styles.lists}>
+          {props.toc.map((x) => {
+            return (
+              <li key={x.id} className={`${styles.list} ${x.name}`}>
+                <Link to={`${x.id}`}>{x.text}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </h4>
+    </div>
+  );
+};

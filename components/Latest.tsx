@@ -1,13 +1,13 @@
-import { IBlog } from "../interfaces/interface";
+import { IBlog } from '../interfaces/interface';
 import styles from '../styles/components/Latest.module.scss';
 
 type LatestProps = {
-    blogs: IBlog[];
-}
+  blogs: IBlog[];
+};
 
 export const Latest: React.FC<LatestProps> = (props) => {
-    return (
-        <div className={styles.wrapper}>
+  return (
+    <div className={styles.wrapper}>
       <h1 className={styles.pageTitle}>最新の記事</h1>
       <ul>
         {props.blogs.map((blog) => {
@@ -21,5 +21,5 @@ export const Latest: React.FC<LatestProps> = (props) => {
         })}
       </ul>
     </div>
-    );
-}
+  );
+};

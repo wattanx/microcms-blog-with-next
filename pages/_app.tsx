@@ -23,7 +23,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <meta property="og:description" content={description} />
           </>
         )}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" async></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js"
+          async
+        ></script>
       </Head>
       <div className="wrapper">
         <Header />

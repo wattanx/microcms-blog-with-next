@@ -29,7 +29,9 @@ const Index: NextPage<IndexProps> = (props) => {
   const [blogs, setBlogs] = useState<MicroCmsResponse<IBlog>>(props.blogs);
 
   const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.value.trim()) { return; }
+    if (!e.currentTarget.value.trim()) {
+      return;
+    }
     if (e.key === 'Enter') {
       const data = await new BlogService().getBlogsByQuery(e.currentTarget.value);
 
