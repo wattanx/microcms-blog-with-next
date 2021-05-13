@@ -1,6 +1,6 @@
 import { config } from '../site.config';
 import { BlogService } from './BlogService';
-import { formatDate } from './DateUtil';
+import { DateUtil } from './DateUtil';
 
 export async function generateSitemapXml(): Promise<string> {
   let xml: string = `<?xml version="1.0" encoding="UTF-8"?>`;
@@ -10,7 +10,7 @@ export async function generateSitemapXml(): Promise<string> {
   blogs.contents.forEach((blog) => {
     xml += `<url>
         <loc>${config.baseUrl}/${blog.id}</loc>
-        <lastmod>${formatDate(blog.createdAt, 'YYYY-MM-DD')}</lastmod>
+        <lastmod>${DateUtil.formatDate(blog.createdAt, 'YYYY-MM-DD')}</lastmod>
         <changefreq>weekly</changefreq>
       </url>`;
   });
