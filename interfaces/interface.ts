@@ -1,3 +1,5 @@
+import { TocTypes } from "../utils/TocUtil";
+
 export interface IBlog extends IMicroCmsResponseBase {
   title?: string;
   category?: ICategory;
@@ -57,3 +59,9 @@ export interface IMicroCmsImageType {
   height: number;
   width: number;
 }
+
+export interface IDraftResponse {
+  blog: IBlog;
+  toc: TocTypes[];
+  body: string;
+};

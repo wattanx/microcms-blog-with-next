@@ -3,6 +3,7 @@ import {
   IBanner,
   IBlog,
   ICategory,
+  IDraftResponse,
   IPopularArticles,
   MicroCmsResponse,
 } from '../interfaces/interface';
@@ -113,6 +114,10 @@ export class BlogService implements IBlogService {
 
   public async getBlogsByQuery(query: string): Promise<MicroCmsResponse<IBlog>> {
     return (await axios.get(`${config.baseUrl}/api/search?q=${query}`)).data;
+  }
+
+  public async getDraftBlog(id: string, draftKey: string): Promise<IDraftResponse> {
+    return (await axios.get(`${config.baseUrl}/api/draft?id=${id}&draftKey=${draftKey}`)).data;
   }
 
   public async getPopularArticles(): Promise<IPopularArticles> {
