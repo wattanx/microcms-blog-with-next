@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext } from 'next';
-import { generateFeedXml } from '../utils/RssUtil';
+import { RssUtil } from '../utils/RssUtil';
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
-  const xml = await generateFeedXml();
+  const xml = await RssUtil.generateFeedXml();
   res.statusCode = 200;
   res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate');
   res.setHeader('Content-Type', 'text/xml');
