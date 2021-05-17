@@ -17,7 +17,7 @@ import {
   ICategory,
   IPopularArticles,
   MicroCmsResponse,
-  IDraftResponse
+  IDraftResponse,
 } from '../../interfaces/interface';
 import styles from '../../styles/Detail.module.scss';
 import { IBlogService, BlogService } from '../../utils/BlogService';
