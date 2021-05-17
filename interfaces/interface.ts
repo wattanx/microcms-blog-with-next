@@ -1,4 +1,4 @@
-import { TocTypes } from "../utils/TocUtil";
+import { TocTypes } from '../utils/TocUtil';
 
 export interface IBlog extends IMicroCmsResponseBase {
   title?: string;
@@ -64,4 +64,4 @@ export interface IDraftResponse {
   blog: IBlog;
   toc: TocTypes[];
   body: string;
-};
+}
