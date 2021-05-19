@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/dist/client/router';
 import { Banner } from '../../components/Banner';
 import { BreadCrumb } from '../../components/BreadCrumb';
 import { Categories } from '../../components/Categories';
@@ -17,11 +16,10 @@ import {
   ICategory,
   IPopularArticles,
   MicroCmsResponse,
-  IDraftResponse,
 } from '../../interfaces/interface';
 import styles from '../../styles/Detail.module.scss';
 import { IBlogService, BlogService } from '../../utils/BlogService';
-import { useEffect, useState } from 'react';
+import { useDraft } from '../../hooks/useDraft';
 
 type DraftProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -31,22 +29,7 @@ type DraftProps = {
 };
 
 const Draft: NextPage<DraftProps> = (props) => {
-  const router = useRouter();
-  const [data, setData] = useState<IDraftResponse>(null);
-  const [isLoading, setLoading] = useState<boolean>(true);
-
-  const fetcher = async () => {
-    const query = router.query;
-    const data = await new BlogService().getDraftBlog(query.id as string, query.draftKey as string);
-    setData(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    if (router.isReady) {
-      fetcher();
-    }
-  }, [router.isReady]);
+  const { data, isLoading } = useDraft();
 
   if (isLoading || !data) {
     return <Loader />;
