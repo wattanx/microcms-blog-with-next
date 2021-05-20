@@ -82,8 +82,14 @@ const Page: NextPage<PageProps> = (props) => {
 };
 
 export async function getStaticPaths() {
+  const limit: number = 10;
+  const service: IBlogService = new BlogService();
+  const { pager } = await service.getBlogsByCategory(limit, 1);
+  const paths = pager.map(page => {
+    return { params: { id: (page + 1).toString() } };
+  })
   return {
-    paths: [],
+    paths: paths,
     fallback: true,
   };
 }
@@ -92,7 +98,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const limit: number = 10;
   const service: IBlogService = new BlogService();
-  const blogs = await service.getBlogsByCategory(limit, page);
+  const { blogs, pager } = await service.getBlogsByCategory(limit, page);
   const categories = await service.getCategories();
   const popularArticles = await service.getPopularArticles();
   const banner = await service.getBanners();
@@ -102,7 +108,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       categories: categories,
       popularArticles: popularArticles,
       banner: banner,
-      pager: [...Array(Math.ceil(blogs.totalCount / 10)).keys()],
+      pager: pager,
     },
   };
 }
