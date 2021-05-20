@@ -79,7 +79,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params || '1';
   const limit: number = 10;
   const service: IBlogService = new BlogService();
-  const blogs = await service.getBlogsByCategory(limit, page);
+  const { blogs, pager } = await service.getBlogsByCategory(limit, page);
   const categories = await service.getCategories();
   const popularArticles = await service.getPopularArticles();
   const banner = await service.getBanners();
@@ -88,7 +88,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       blogs: blogs,
       categories: categories,
       popularArticles: popularArticles,
-      pager: [...Array(Math.ceil(blogs.totalCount / 10)).keys()],
+      pager: pager,
       banner: banner,
     },
   };

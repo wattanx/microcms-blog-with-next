@@ -34,7 +34,7 @@ export interface IBlogService {
     limit: number,
     page: number,
     categoryId?: string,
-  ): Promise<MicroCmsResponse<IBlog>>;
+  ): Promise<{ blogs: MicroCmsResponse<IBlog>; pager: number[] }>;
 
   /**
    * blogIdに合致するblogデータを取得します
@@ -85,8 +85,8 @@ export class BlogService implements IBlogService {
     limit: number,
     page: number,
     categoryId?: string,
-  ): Promise<MicroCmsResponse<IBlog>> {
-    return (
+  ): Promise<{ blogs: MicroCmsResponse<IBlog>; pager: number[] }> {
+    const blogs = (
       await axios.get(
         `${apiRoot}/blog?limit=${limit}${
           categoryId === undefined ? '' : `&filters=category[equals]${categoryId}`
@@ -94,6 +94,8 @@ export class BlogService implements IBlogService {
         { headers: { 'X-API-KEY': config.apiKey } },
       )
     ).data;
+    const pager = [...Array(Math.ceil(blogs.totalCount / 10)).keys()];
+    return { blogs, pager };
   }
 
   public async getBlogById(blogId: string): Promise<IBlog> {
