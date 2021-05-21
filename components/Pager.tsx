@@ -1,5 +1,5 @@
-import { ICategory } from '../interfaces/interface';
-import styles from '../styles/components/Pager.module.scss';
+import { ICategory } from '@interfaces/interface';
+import styles from '@styles/components/Pager.module.scss';
 
 type PagerProps = {
   selectedCategory?: ICategory;

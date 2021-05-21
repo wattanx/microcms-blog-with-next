@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { ICategory } from '../interfaces/interface';
-import styles from '../styles/components/Categories.module.scss';
+import { ICategory } from '@interfaces/interface';
+import styles from '@styles/components/Categories.module.scss';
 
 type CategoriesProps = {
   categories: ICategory[];
