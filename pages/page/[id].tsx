@@ -85,9 +85,9 @@ export async function getStaticPaths() {
   const limit: number = 10;
   const service: IBlogService = new BlogService();
   const { pager } = await service.getBlogsByCategory(limit, 1);
-  const paths = pager.map(page => {
+  const paths = pager.map((page) => {
     return { params: { id: (page + 1).toString() } };
-  })
+  });
   return {
     paths: paths,
     fallback: true,

@@ -1,5 +1,5 @@
-import { IBlog } from '../interfaces/interface';
-import styles from '../styles/components/Latest.module.scss';
+import { IBlog } from '@interfaces/interface';
+import styles from '@styles/components/Latest.module.scss';
 
 type LatestProps = {
   blogs: IBlog[];

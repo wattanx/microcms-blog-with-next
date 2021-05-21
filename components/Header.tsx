@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import styles from '../styles/components/Header.module.scss';
+import styles from '@styles/components/Header.module.scss';
 
 export const Header: React.FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);

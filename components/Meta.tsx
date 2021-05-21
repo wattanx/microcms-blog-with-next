@@ -1,5 +1,5 @@
-import { IAuthor, ICategory } from '../interfaces/interface';
-import { DateUtil } from '../utils/DateUtil';
+import { IAuthor, ICategory } from '@interfaces/interface';
+import { DateUtil } from '@utils/DateUtil';
 
 type MetaProps = {
   category?: ICategory;

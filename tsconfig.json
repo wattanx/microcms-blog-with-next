@@ -16,7 +16,11 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "esnext"
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@*":["./*"]
+    }
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts","**/*.ts", "**/*.tsx"]
