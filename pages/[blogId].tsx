@@ -1,27 +1,27 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
-import { Banner } from '../components/Banner';
-import { BreadCrumb } from '../components/BreadCrumb';
-import { Categories } from '../components/Categories';
-import { Latest } from '../components/Latest';
-import { Loader } from '../components/Loader';
-import { Meta } from '../components/Meta';
-import { PopularArticle } from '../components/PopularArticle';
-import { Post } from '../components/Post';
-import { Search } from '../components/Search';
-import { Share } from '../components/Share';
-import { Toc } from '../components/Toc';
+import { Banner } from '@components/Banner';
+import { BreadCrumb } from '@components/BreadCrumb';
+import { Categories } from '@components/Categories';
+import { Latest } from '@components/Latest';
+import { Loader } from '@components/Loader';
+import { Meta } from '@components/Meta';
+import { PopularArticle } from '@components/PopularArticle';
+import { Post } from '@components/Post';
+import { Search } from '@components/Search';
+import { Share } from '@components/Share';
+import { Toc } from '@components/Toc';
 import {
   IBanner,
   IBlog,
   ICategory,
   IPopularArticles,
   MicroCmsResponse,
-} from '../interfaces/interface';
-import styles from '../styles/Detail.module.scss';
-import { IBlogService, BlogService } from '../utils/BlogService';
-import { TocUtil, TocTypes } from '../utils/TocUtil';
-import { convertToHtml } from '../utils/PostsUtil';
+} from '@interfaces/interface';
+import styles from '@styles/Detail.module.scss';
+import { IBlogService, BlogService } from '@utils/BlogService';
+import { TocUtil, TocTypes } from '@utils/TocUtil';
+import { convertToHtml } from '@utils/PostsUtil';
 
 type DetailProps = {
   blog: IBlog;
