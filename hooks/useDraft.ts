@@ -1,6 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
-import { IDraftResponse } from '../interfaces/interface';
-import { BlogService } from '../utils/BlogService';
+import { IDraftResponse } from '@interfaces/interface';
+import { BlogService } from '@utils/BlogService';
 import { useEffect, useState } from 'react';
 export function useDraft() {
   const router = useRouter();
