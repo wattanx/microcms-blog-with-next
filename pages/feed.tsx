@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import { RssUtil } from '../utils/RssUtil';
+import { RssUtil } from '@utils/RssUtil';
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   const xml = await RssUtil.generateFeedXml();
