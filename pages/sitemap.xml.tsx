@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import { generateSitemapXml } from '../utils/SitemapUtil';
+import { generateSitemapXml } from '@utils/SitemapUtil';
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   const xml = await generateSitemapXml();
