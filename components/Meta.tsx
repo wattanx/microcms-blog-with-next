@@ -1,5 +1,5 @@
 import { IAuthor, ICategory } from '@interfaces/interface';
-import { DateUtil } from '@utils/DateUtil';
+import { formatDate } from '@utils/DateUtil';
 
 type MetaProps = {
   category?: ICategory;
@@ -14,8 +14,8 @@ export const Meta: React.FC<MetaProps> = (props) => {
       <div className="meta">
         <span className="timestamp">
           <img src="/images/icon_clock.svg" alt="clock" />
-          <time dateTime={DateUtil.formatDate(props.createdAt ?? '', 'YYYY-MM-DD')}>
-            {DateUtil.formatDate(props.createdAt ?? '', 'YYYY/MM/DD')}
+          <time dateTime={formatDate(props.createdAt ?? '', 'YYYY-MM-DD')}>
+            {formatDate(props.createdAt ?? '', 'YYYY/MM/DD')}
           </time>
         </span>
         {props.author && (
