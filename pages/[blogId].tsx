@@ -20,7 +20,7 @@ import {
 } from '@interfaces/interface';
 import styles from '@styles/Detail.module.scss';
 import { IBlogService, BlogService } from '@utils/BlogService';
-import { TocUtil, TocTypes } from '@utils/TocUtil';
+import { convertToToc, TocTypes } from '@utils/TocUtil';
 import { convertToHtml } from '@utils/PostsUtil';
 
 type DetailProps = {
@@ -109,7 +109,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const limit: number = 10;
   const service: IBlogService = new BlogService();
   const blog = await service.getBlogById(blogId);
-  const toc = TocUtil.convertToToc(blog.body);
+  const toc = convertToToc(blog.body);
   const body = convertToHtml(blog.body);
   const blogs = await service.getBlogs(limit);
   const categories = await service.getCategories();
