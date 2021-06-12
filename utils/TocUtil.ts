@@ -6,25 +6,15 @@ export type TocTypes = {
   name: string;
 };
 
-/**
- * 目次用のUtilityクラス
- */
-export class TocUtil {
-  /**
-   * HtmlStringを目次へ変換します
-   * @param htmlString HTML文字列
-   * @returns 目次
-   */
-  public static convertToToc(htmlString: string): TocTypes[] {
-    const dom = new JSDOM(htmlString);
-    const toc: TocTypes[] = [];
-    dom.window.document.querySelectorAll('h1, h2, h3').forEach((heading) => {
-      toc.push({
-        id: heading.id,
-        name: heading.tagName,
-        text: heading.textContent,
-      });
+export function convertToToc(htmlString: string): TocTypes[] {
+  const dom = new JSDOM(htmlString);
+  const toc: TocTypes[] = [];
+  dom.window.document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
+    toc.push({
+      id: heading.id,
+      name: heading.tagName,
+      text: heading.textContent,
     });
-    return toc;
-  }
+  });
+  return toc;
 }
