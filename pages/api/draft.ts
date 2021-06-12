@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '../../site.config';
 import { IBlog } from '@interfaces/interface';
-import { TocUtil } from '@utils/TocUtil';
+import { convertToToc } from '@utils/TocUtil';
 import { convertToHtml } from '@utils/PostsUtil';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     )
     .then(({ data }) => {
-      const toc = TocUtil.convertToToc(data.body);
+      const toc = convertToToc(data.body);
       const body = convertToHtml(data.body);
       res.status(200).json({ blog: data, toc: toc, body: body });
     })
