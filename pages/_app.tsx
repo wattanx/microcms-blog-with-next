@@ -5,6 +5,9 @@ import { Header } from '../components/Header';
 import { config } from '../site.config';
 import '../styles/globals.scss';
 import { usePageView } from '../hooks/usePageView';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   usePageView();
@@ -33,7 +36,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <div className="wrapper">
         <Header />
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </div>
       <Footer />
     </>
