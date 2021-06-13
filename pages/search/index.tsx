@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
-import { useState } from 'react';
 import { Banner } from '@components/Banner';
 import { BreadCrumb } from '@components/BreadCrumb';
 import { Categories } from '@components/Categories';
@@ -15,6 +14,7 @@ import {
 } from '@interfaces/interface';
 import styles from '@styles/SearchPage.module.scss';
 import { IBlogService, BlogService } from '@utils/BlogService';
+import { useSearchByQuery } from '@hooks/useSearchByQuery';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -25,19 +25,10 @@ type IndexProps = {
 };
 
 const Index: NextPage<IndexProps> = (props) => {
-  const [searchValue, setSearchValue] = useState<string>(props.query);
-  const [blogs, setBlogs] = useState<MicroCmsResponse<IBlog>>(props.blogs);
-
-  const onEnterKeyEvent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.value.trim()) {
-      return;
-    }
-    if (e.key === 'Enter') {
-      const data = await new BlogService().getBlogsByQuery(e.currentTarget.value);
-
-      setBlogs(data);
-    }
-  };
+  const { searchValue, setSearchValue, onEnterKeyEvent, data } = useSearchByQuery(
+    props.query,
+    props.blogs,
+  );
 
   return (
     <div className="divider">
@@ -50,9 +41,9 @@ const Index: NextPage<IndexProps> = (props) => {
           onKeyPress={(e) => onEnterKeyEvent(e)}
         />
         <BreadCrumb />
-        {blogs.contents.length === 0 && <>記事がありません</>}
+        {data.contents.length === 0 && <>記事がありません</>}
         <ul>
-          {blogs.contents.map((blog) => {
+          {data.contents.map((blog) => {
             return (
               <li key={blog.id} className="list">
                 <Link href="/[blogId]" as={`/${blog.id}`}>
