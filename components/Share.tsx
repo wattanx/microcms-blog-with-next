@@ -7,10 +7,10 @@ type ShareProps = {
 };
 
 export const Share: React.FC<ShareProps> = (props) => {
-  const twitterLink: string = `https://twitter.com/intent/tweet?text=${props.title}&url=${config.baseUrl}/${props.id}/&hashtags=microcms`;
-  const facebookLink: string = `https://www.facebook.com/sharer.php?u=${config.baseUrl}/${props.id}/`;
-  const hatenaLink: string = `https://b.hatena.ne.jp/entry/${config.baseUrl}/${props.id}/`;
-  const feedLink: string = `${config.baseUrl}/feed`;
+  const twitterLink = `https://twitter.com/intent/tweet?text=${props.title}&url=${config.baseUrl}/${props.id}/&hashtags=microcms`;
+  const facebookLink = `https://www.facebook.com/sharer.php?u=${config.baseUrl}/${props.id}/`;
+  const hatenaLink = `https://b.hatena.ne.jp/entry/${config.baseUrl}/${props.id}/`;
+  const feedLink = `${config.baseUrl}/feed`;
   return (
     <div className={styles.share}>
       <ul className={styles.shareLists}>
