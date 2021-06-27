@@ -65,3 +65,12 @@ export interface IDraftResponse {
   toc: TocTypes[];
   body: string;
 }
+
+export type Response<T = any> = {
+  data: T;
+  headers: any;
+};
+
+export interface IHttpClient {
+  get: <T extends object, R = Response<T>>(path: string) => Promise<R>;
+}

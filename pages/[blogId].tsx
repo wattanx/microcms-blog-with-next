@@ -11,13 +11,7 @@ import { Post } from '@components/Post';
 import { Search } from '@components/Search';
 import { Share } from '@components/Share';
 import { Toc } from '@components/Toc';
-import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@interfaces/interface';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
 import { IBlogService, BlogService } from '@utils/BlogService';
 import { convertToToc, TocTypes } from '@utils/TocUtil';

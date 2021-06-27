@@ -5,13 +5,7 @@ import { BreadCrumb } from '@components/BreadCrumb';
 import { Categories } from '@components/Categories';
 import { Meta } from '@components/Meta';
 import { PopularArticle } from '@components/PopularArticle';
-import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@interfaces/interface';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
 import styles from '@styles/SearchPage.module.scss';
 import { IBlogService, BlogService } from '@utils/BlogService';
 import { useSearchByQuery } from '@hooks/useSearchByQuery';

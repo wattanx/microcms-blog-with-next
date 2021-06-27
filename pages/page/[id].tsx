@@ -6,13 +6,7 @@ import { Meta } from '@components/Meta';
 import { Pager } from '@components/Pager';
 import { PopularArticle } from '@components/PopularArticle';
 import { Search } from '@components/Search';
-import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@interfaces/interface';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
 import { Banner } from '@components/Banner';
 import { IBlogService, BlogService } from '@utils/BlogService';
 import { useRouter } from 'next/dist/client/router';

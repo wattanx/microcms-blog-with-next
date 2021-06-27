@@ -7,13 +7,7 @@ import { Meta } from '@components/Meta';
 import { Pager } from '@components/Pager';
 import { PopularArticle } from '@components/PopularArticle';
 import { Search } from '@components/Search';
-import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@interfaces/interface';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
 import { IBlogService, BlogService } from '@utils/BlogService';
 
 type IndexProps = {

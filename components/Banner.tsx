@@ -1,4 +1,4 @@
-import { IBanner } from '@interfaces/interface';
+import { IBanner } from '@/types/interface';
 import styles from '@styles/components/Banner.module.scss';
 
 type BannerProps = {

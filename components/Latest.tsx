@@ -1,4 +1,4 @@
-import { IBlog } from '@interfaces/interface';
+import { IBlog } from '@/types/interface';
 import styles from '@styles/components/Latest.module.scss';
 
 type LatestProps = {

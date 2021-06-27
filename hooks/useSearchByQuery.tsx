@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { MicroCmsResponse, IBlog } from '@interfaces/interface';
+import { MicroCmsResponse, IBlog } from '@/types/interface';
 import { BlogService } from '@utils/BlogService';
 
 export function useSearchByQuery(query: string, initialData: MicroCmsResponse<IBlog>) {

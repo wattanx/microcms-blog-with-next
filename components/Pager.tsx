@@ -1,4 +1,4 @@
-import { ICategory } from '@interfaces/interface';
+import { ICategory } from '@/types/interface';
 import styles from '@styles/components/Pager.module.scss';
 
 type PagerProps = {
