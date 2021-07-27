@@ -1,4 +1,4 @@
-import { IBlog } from '@/types/interface';
+import { IBlog } from '@/types';
 import styles from '@styles/components/PopularArticle.module.scss';
 
 type PopularArticleProps = {

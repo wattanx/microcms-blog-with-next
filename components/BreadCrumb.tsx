@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ICategory } from '@/types/interface';
+import { ICategory } from '@/types';
 
 type BreadCrumbProps = {
   category?: ICategory;

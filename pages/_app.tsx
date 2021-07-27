@@ -1,11 +1,10 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Footer } from '../components/Footer';
-import { Header } from '../components/Header';
-import { config } from '../site.config';
-import '../styles/globals.scss';
-import { usePageView } from '../hooks/usePageView';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Footer, Header } from '@components';
+import { config } from '../site.config';
+import { usePageView } from '@hooks';
+import '../styles/globals.scss';
 
 const queryClient = new QueryClient();
 

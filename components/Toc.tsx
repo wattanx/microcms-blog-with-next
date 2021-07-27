@@ -1,6 +1,6 @@
 import styles from '@styles/components/Toc.module.scss';
 import { Link } from 'react-scroll';
-import { TocTypes } from '@utils/TocUtil';
+import { TocTypes } from '@utils';
 
 type TocProps = {
   toc: TocTypes[];

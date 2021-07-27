@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { MicroCmsResponse, IBlog } from '@/types/interface';
-import { BlogService } from '@utils/BlogService';
+import { MicroCmsResponse, IBlog } from '@/types';
+import { BlogService } from '@utils';
 
 export function useSearchByQuery(query: string, initialData: MicroCmsResponse<IBlog>) {
   const [searchValue, setSearchValue] = useState<string>(query);

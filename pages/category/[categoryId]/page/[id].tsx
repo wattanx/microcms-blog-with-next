@@ -1,16 +1,18 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import Link from 'next/link';
-import { Banner } from '@components/Banner';
-import { BreadCrumb } from '@components/BreadCrumb';
-import { Categories } from '@components/Categories';
-import { Loader } from '@components/Loader';
-import { Meta } from '@components/Meta';
-import { Pager } from '@components/Pager';
-import { PopularArticle } from '@components/PopularArticle';
-import { Search } from '@components/Search';
-import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
-import { IBlogService, BlogService } from '@utils/BlogService';
+import {
+  Banner,
+  BreadCrumb,
+  Categories,
+  Loader,
+  Meta,
+  Pager,
+  PopularArticle,
+  Search,
+} from '@components';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
+import { IBlogService, BlogService } from '@utils';
 
 type PageProps = {
   blogs: MicroCmsResponse<IBlog>;
