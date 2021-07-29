@@ -1,20 +1,8 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import Link from 'next/link';
-import { Banner } from '@components/Banner';
-import { BreadCrumb } from '@components/BreadCrumb';
-import { Categories } from '@components/Categories';
-import { Meta } from '@components/Meta';
-import { Pager } from '@components/Pager';
-import { PopularArticle } from '@components/PopularArticle';
-import { Search } from '@components/Search';
-import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@interfaces/interface';
-import { IBlogService, BlogService } from '@utils/BlogService';
+import { Banner, BreadCrumb, Categories, Meta, Pager, PopularArticle, Search } from '@components';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
+import { IBlogService, BlogService } from '@utils';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;

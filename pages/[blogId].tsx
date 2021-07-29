@@ -7,21 +7,10 @@ import { Latest } from '@components/Latest';
 import { Loader } from '@components/Loader';
 import { Meta } from '@components/Meta';
 import { PopularArticle } from '@components/PopularArticle';
-import { Post } from '@components/Post';
-import { Search } from '@components/Search';
-import { Share } from '@components/Share';
-import { Toc } from '@components/Toc';
-import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@interfaces/interface';
+import { Post, Search, Share, Toc } from '@components';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
-import { IBlogService, BlogService } from '@utils/BlogService';
-import { convertToToc, TocTypes } from '@utils/TocUtil';
-import { convertToHtml } from '@utils/PostsUtil';
+import { IBlogService, BlogService, convertToToc, TocTypes, convertToHtml } from '@utils';
 
 type DetailProps = {
   blog: IBlog;

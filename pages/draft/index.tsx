@@ -1,25 +1,21 @@
 import { NextPage } from 'next';
-import { Banner } from '@components/Banner';
-import { BreadCrumb } from '@components/BreadCrumb';
-import { Categories } from '@components/Categories';
-import { Latest } from '@components/Latest';
-import { Loader } from '@components/Loader';
-import { Meta } from '@components/Meta';
-import { PopularArticle } from '@components/PopularArticle';
-import { Post } from '@components/Post';
-import { Search } from '@components/Search';
-import { Share } from '@components/Share';
-import { Toc } from '@components/Toc';
 import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@interfaces/interface';
+  Banner,
+  BreadCrumb,
+  Categories,
+  Latest,
+  Loader,
+  Meta,
+  PopularArticle,
+  Post,
+  Search,
+  Share,
+  Toc,
+} from '@components';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
+import { useDraft } from '@hooks';
+import { IBlogService, BlogService } from '@utils';
 import styles from '@styles/Detail.module.scss';
-import { IBlogService, BlogService } from '@utils/BlogService';
-import { useDraft } from '@hooks/useDraft';
 
 type DraftProps = {
   blogs: MicroCmsResponse<IBlog>;
