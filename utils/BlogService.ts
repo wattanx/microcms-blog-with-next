@@ -6,7 +6,7 @@ import {
   IDraftResponse,
   IPopularArticles,
   MicroCmsResponse,
-} from '@interfaces/interface';
+} from '@/types/interface';
 import { config } from '../site.config';
 
 const apiRoot: string = `https://${config.serviceId}.microcms.io/api/v1`;
