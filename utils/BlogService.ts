@@ -115,7 +115,7 @@ export class BlogService implements IBlogService {
   }
 
   public async getBlogsByQuery(query: string): Promise<MicroCmsResponse<IBlog>> {
-    return (await axios.get(`${config.baseUrl}/api/search?q=${query}`)).data;
+    return (await axios.get(`${config.baseUrl}/api/search?q=${encodeURIComponent(query)}`)).data;
   }
 
   public async getDraftBlog(id: string, draftKey: string): Promise<IDraftResponse> {
