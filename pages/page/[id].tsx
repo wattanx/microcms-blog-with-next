@@ -12,7 +12,7 @@ import {
   Search,
 } from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
-import { IBlogService, BlogService } from '@utils';
+import { getBanners, getBlogsByCategory, getCategories, getPopularArticles } from '@blog';
 
 type PageProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -79,8 +79,7 @@ const Page: NextPage<PageProps> = (props) => {
 
 export async function getStaticPaths() {
   const limit: number = 10;
-  const service: IBlogService = new BlogService();
-  const { pager } = await service.getBlogsByCategory(limit, 1);
+  const { pager } = await getBlogsByCategory(limit, 1);
   const paths = pager.map((page) => {
     return { params: { id: (page + 1).toString() } };
   });
@@ -93,11 +92,10 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const limit: number = 10;
-  const service: IBlogService = new BlogService();
-  const { blogs, pager } = await service.getBlogsByCategory(limit, page);
-  const categories = await service.getCategories();
-  const popularArticles = await service.getPopularArticles();
-  const banner = await service.getBanners();
+  const { blogs, pager } = await getBlogsByCategory(limit, page);
+  const categories = await getCategories();
+  const popularArticles = await getPopularArticles();
+  const banner = await getBanners();
   return {
     props: {
       blogs: blogs,

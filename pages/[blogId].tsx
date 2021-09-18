@@ -10,7 +10,15 @@ import { PopularArticle } from '@components/PopularArticle';
 import { Post, Search, Share, Toc } from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
-import { IBlogService, BlogService, convertToToc, TocTypes, convertToHtml } from '@utils';
+import { convertToToc, TocTypes, convertToHtml } from '@utils';
+import {
+  getAllBlogs,
+  getBanners,
+  getBlogById,
+  getBlogs,
+  getCategories,
+  getPopularArticles,
+} from '@blog';
 
 type DetailProps = {
   blog: IBlog;
@@ -82,8 +90,7 @@ const Detail: NextPage<DetailProps> = (props) => {
 };
 
 export async function getStaticPaths() {
-  const service: IBlogService = new BlogService();
-  const blogs = await service.getAllBlogs();
+  const blogs = await getAllBlogs();
   const ids = blogs.contents.map((blog) => {
     return { params: { blogId: blog.id } };
   });
@@ -96,14 +103,13 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const blogId: any = context.params?.blogId || '1';
   const limit: number = 10;
-  const service: IBlogService = new BlogService();
-  const blog = await service.getBlogById(blogId);
+  const blog = await getBlogById(blogId);
   const toc = convertToToc(blog.body);
   const body = convertToHtml(blog.body);
-  const blogs = await service.getBlogs(limit);
-  const categories = await service.getCategories();
-  const popularArticles = await service.getPopularArticles();
-  const banner = await service.getBanners();
+  const blogs = await getBlogs(limit);
+  const categories = await getCategories();
+  const popularArticles = await getPopularArticles();
+  const banner = await getBanners();
   return {
     props: {
       blog: blog,
