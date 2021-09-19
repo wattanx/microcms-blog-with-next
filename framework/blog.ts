@@ -1,20 +1,7 @@
-import axios from 'axios';
 import { config } from '@site.config';
-import {
-  IBanner,
-  IBlog,
-  ICategory,
-  IDraftResponse,
-  IPopularArticles,
-  MicroCmsResponse,
-} from '@types';
-import { createClient } from 'microcms-js-sdk';
+import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@types';
+import { client } from '@framework';
 import { QueriesType } from 'microcms-js-sdk/dist/cjs/types';
-
-const client = createClient({
-  serviceDomain: config.serviceId,
-  apiKey: config.apiKey,
-});
 
 export const getAllBlogs = async (): Promise<MicroCmsResponse<IBlog>> => {
   const res = await client.get<MicroCmsResponse<IBlog>>({
@@ -73,18 +60,4 @@ export const getPopularArticles = async (): Promise<IPopularArticles> => {
 export const getBanners = async (): Promise<IBanner> => {
   const res = await client.get<IBanner>({ endpoint: 'banner' });
   return res;
-};
-
-export const getBlogsByQuery = async (query: string): Promise<MicroCmsResponse<IBlog>> => {
-  const res = await axios.get<MicroCmsResponse<IBlog>>(
-    `${config.baseUrl}/api/search?q=${encodeURIComponent(query)}`,
-  );
-  return res.data;
-};
-
-export const getDraftBlog = async (id: string, draftKey: string): Promise<IDraftResponse> => {
-  const res = await axios.get<IDraftResponse>(
-    `${config.baseUrl}/api/draft?id=${id}&draftKey=${draftKey}`,
-  );
-  return res.data;
 };

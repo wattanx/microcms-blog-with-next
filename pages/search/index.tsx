@@ -4,7 +4,8 @@ import { Banner, BreadCrumb, Categories, Meta, PopularArticle } from '@component
 import { useSearchByQuery } from '@hooks';
 import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
 import styles from '@styles/SearchPage.module.scss';
-import { getBanners, getBlogsByQuery, getCategories, getPopularArticles } from '@blog';
+import { getBanners, getCategories, getPopularArticles } from '@blog';
+import { getBlogsByQuery } from '@framework';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
