@@ -2,7 +2,7 @@ import { GetStaticPropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { Banner, BreadCrumb, Categories, Meta, Pager, PopularArticle, Search } from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
-import { IBlogService, BlogService } from '@utils';
+import { getBanners, getBlogsByCategory, getCategories, getPopularArticles } from '@blog';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -66,11 +66,10 @@ const Index: NextPage<IndexProps> = (props) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params || '1';
   const limit: number = 10;
-  const service: IBlogService = new BlogService();
-  const { blogs, pager } = await service.getBlogsByCategory(limit, page);
-  const categories = await service.getCategories();
-  const popularArticles = await service.getPopularArticles();
-  const banner = await service.getBanners();
+  const { blogs, pager } = await getBlogsByCategory(limit, page);
+  const categories = await getCategories();
+  const popularArticles = await getPopularArticles();
+  const banner = await getBanners();
   return {
     props: {
       blogs: blogs,

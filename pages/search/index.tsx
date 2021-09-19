@@ -2,9 +2,10 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { Banner, BreadCrumb, Categories, Meta, PopularArticle } from '@components';
 import { useSearchByQuery } from '@hooks';
-import { IBlogService, BlogService } from '@utils';
 import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
 import styles from '@styles/SearchPage.module.scss';
+import { getBanners, getCategories, getPopularArticles } from '@blog';
+import { getBlogsByQuery } from '@framework';
 
 type IndexProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -73,11 +74,10 @@ const Index: NextPage<IndexProps> = (props) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const query = context.query.q;
-  const service: IBlogService = new BlogService();
-  const blogs = await service.getBlogsByQuery(query as string);
-  const categories = await service.getCategories();
-  const popularArticles = await service.getPopularArticles();
-  const banner = await service.getBanners();
+  const blogs = await getBlogsByQuery(query as string);
+  const categories = await getCategories();
+  const popularArticles = await getPopularArticles();
+  const banner = await getBanners();
   return {
     props: {
       blogs: blogs,

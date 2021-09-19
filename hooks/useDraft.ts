@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { IDraftResponse } from '@/types';
-import { BlogService } from '@utils';
+import { getDraftBlog } from 'framework/draft';
 
-export function useDraft() {
+export const useDraft = () => {
   const router = useRouter();
   const [data, setData] = useState<IDraftResponse>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
 
   const fetcher = async () => {
     const query = router.query;
-    const data = await new BlogService().getDraftBlog(query.id as string, query.draftKey as string);
+    const data = await getDraftBlog(query.id as string, query.draftKey as string);
     setData(data);
     setLoading(false);
   };
@@ -25,4 +25,4 @@ export function useDraft() {
     data,
     isLoading,
   };
-}
+};

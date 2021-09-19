@@ -14,8 +14,8 @@ import {
 } from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
 import { useDraft } from '@hooks';
-import { IBlogService, BlogService } from '@utils';
 import styles from '@styles/Detail.module.scss';
+import { getBanners, getBlogs, getCategories, getPopularArticles } from '@blog';
 
 type DraftProps = {
   blogs: MicroCmsResponse<IBlog>;
@@ -86,11 +86,10 @@ const Draft: NextPage<DraftProps> = (props) => {
 
 export async function getStaticProps() {
   const limit: number = 10;
-  const service: IBlogService = new BlogService();
-  const blogs = await service.getBlogs(limit);
-  const categories = await service.getCategories();
-  const popularArticles = await service.getPopularArticles();
-  const banner = await service.getBanners();
+  const blogs = await getBlogs(limit);
+  const categories = await getCategories();
+  const popularArticles = await getPopularArticles();
+  const banner = await getBanners();
   return {
     props: {
       blogs: blogs,

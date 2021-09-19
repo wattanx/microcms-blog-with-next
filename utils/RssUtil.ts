@@ -1,8 +1,8 @@
+import { getAllBlogs } from 'scripts/blog';
 import RSS from 'rss';
 import { config } from '../site.config';
-import { BlogService } from './BlogService';
 
-export async function generateFeedXml(): Promise<string> {
+export const generateFeedXml = async (): Promise<string> => {
   const feed = new RSS({
     title: config.siteMeta.title,
     description: config.siteMeta.description,
@@ -11,7 +11,7 @@ export async function generateFeedXml(): Promise<string> {
     language: 'ja',
   });
 
-  const blogs = await new BlogService().getAllBlogs();
+  const blogs = await getAllBlogs();
   blogs.contents.forEach((blog) => {
     feed.item({
       title: blog.title,
@@ -22,4 +22,4 @@ export async function generateFeedXml(): Promise<string> {
   });
 
   return feed.xml();
-}
+};
