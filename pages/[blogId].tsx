@@ -8,24 +8,17 @@ import { Loader } from '@components/Loader';
 import { Meta } from '@components/Meta';
 import { PopularArticle } from '@components/PopularArticle';
 import { Post, Search, Share, Toc } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types/interface';
+import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
 import { convertToToc, TocTypes, convertToHtml } from '@utils';
-import {
-  getAllBlogs,
-  getBanners,
-  getBlogById,
-  getBlogs,
-  getCategories,
-  getPopularArticles,
-} from '@blog';
+import { getAllBlogs, getBlogById, getContents } from '@blog';
 
 type DetailProps = {
   blog: IBlog;
   body: string;
   toc: TocTypes[];
-  blogs: MicroCmsResponse<IBlog>;
-  categories: MicroCmsResponse<ICategory>;
+  blogs: IBlog[];
+  categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
 };
@@ -81,9 +74,9 @@ const Detail: NextPage<DetailProps> = (props) => {
       <aside className="aside">
         <Banner banner={props.banner} />
         <Search />
-        <Categories categories={props.categories.contents} />
+        <Categories categories={props.categories} />
         <PopularArticle blogs={props.popularArticles.articles} />
-        <Latest blogs={props.blogs.contents} />
+        <Latest blogs={props.blogs} />
       </aside>
     </div>
   );
@@ -102,23 +95,20 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const blogId: any = context.params?.blogId || '1';
-  const limit: number = 10;
   const blog = await getBlogById(blogId);
   const toc = convertToToc(blog.body);
   const body = convertToHtml(blog.body);
-  const blogs = await getBlogs(limit);
-  const categories = await getCategories();
-  const popularArticles = await getPopularArticles();
-  const banner = await getBanners();
+  const { blogs, categories, popularArticles, banner } = await getContents();
+
   return {
     props: {
-      blog: blog,
-      body: body,
-      toc: toc,
-      blogs: blogs,
-      categories: categories,
-      popularArticles: popularArticles,
-      banner: banner,
+      blog,
+      body,
+      toc,
+      blogs,
+      categories,
+      popularArticles,
+      banner,
     },
   };
 }

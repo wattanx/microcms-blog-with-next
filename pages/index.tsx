@@ -1,12 +1,12 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { Banner, BreadCrumb, Categories, Meta, Pager, PopularArticle, Search } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
-import { getBanners, getBlogsByCategory, getCategories, getPopularArticles } from '@blog';
+import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types';
+import { getContents } from '@blog';
 
 type IndexProps = {
-  blogs: MicroCmsResponse<IBlog>;
-  categories: MicroCmsResponse<ICategory>;
+  blogs: IBlog[];
+  categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
   pager: [];
@@ -17,9 +17,9 @@ const Index: NextPage<IndexProps> = (props) => {
     <div className="divider">
       <div className="container">
         <BreadCrumb />
-        {props.blogs.contents.length === 0 && <>記事がありません</>}
+        {props.blogs.length === 0 && <>記事がありません</>}
         <ul>
-          {props.blogs.contents.map((blog) => {
+          {props.blogs.map((blog) => {
             return (
               <li key={blog.id} className="list">
                 <Link href="/[blogId]" as={`/${blog.id}`}>
@@ -47,7 +47,7 @@ const Index: NextPage<IndexProps> = (props) => {
             );
           })}
         </ul>
-        {props.blogs.contents.length > 0 && (
+        {props.blogs.length > 0 && (
           <ul className="pager">
             <Pager pager={props.pager} />
           </ul>
@@ -56,7 +56,7 @@ const Index: NextPage<IndexProps> = (props) => {
       <aside className="aside">
         <Banner banner={props.banner} />
         <Search />
-        <Categories categories={props.categories.contents} />
+        <Categories categories={props.categories} />
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
     </div>
@@ -65,18 +65,14 @@ const Index: NextPage<IndexProps> = (props) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params || '1';
-  const limit: number = 10;
-  const { blogs, pager } = await getBlogsByCategory(limit, page);
-  const categories = await getCategories();
-  const popularArticles = await getPopularArticles();
-  const banner = await getBanners();
+  const { blogs, pager, categories, popularArticles, banner } = await getContents(page);
   return {
     props: {
-      blogs: blogs,
-      categories: categories,
-      popularArticles: popularArticles,
-      pager: pager,
-      banner: banner,
+      blogs,
+      categories,
+      popularArticles,
+      pager,
+      banner,
     },
   };
 }

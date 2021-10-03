@@ -12,14 +12,14 @@ import {
   Share,
   Toc,
 } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
+import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types';
 import { useDraft } from '@hooks';
 import styles from '@styles/Detail.module.scss';
-import { getBanners, getBlogs, getCategories, getPopularArticles } from '@blog';
+import { getContents } from '@blog';
 
 type DraftProps = {
-  blogs: MicroCmsResponse<IBlog>;
-  categories: MicroCmsResponse<ICategory>;
+  blogs: IBlog[];
+  categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
 };
@@ -76,26 +76,22 @@ const Draft: NextPage<DraftProps> = (props) => {
       <aside className="aside">
         <Banner banner={props.banner} />
         <Search />
-        <Categories categories={props.categories.contents} />
+        <Categories categories={props.categories} />
         <PopularArticle blogs={props.popularArticles.articles} />
-        <Latest blogs={props.blogs.contents} />
+        <Latest blogs={props.blogs} />
       </aside>
     </div>
   );
 };
 
 export async function getStaticProps() {
-  const limit: number = 10;
-  const blogs = await getBlogs(limit);
-  const categories = await getCategories();
-  const popularArticles = await getPopularArticles();
-  const banner = await getBanners();
+  const { blogs, categories, popularArticles, banner } = await getContents();
   return {
     props: {
-      blogs: blogs,
-      categories: categories,
-      popularArticles: popularArticles,
-      banner: banner,
+      blogs,
+      categories,
+      popularArticles,
+      banner,
     },
   };
 }
