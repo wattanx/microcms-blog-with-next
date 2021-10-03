@@ -3,6 +3,33 @@ import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@
 import { client } from '@framework';
 import { QueriesType } from 'microcms-js-sdk/dist/cjs/types';
 
+const limit = parseInt(config.defaultLimit);
+
+export const getContents = async (
+  currentPage: number = 1,
+  categoryId?: string,
+): Promise<{
+  blogs: IBlog[];
+  categories: ICategory[];
+  popularArticles: IPopularArticles;
+  pager: number[];
+  banner: IBanner;
+}> => {
+  const [{ blogs, pager }, categories, banner, popularArticles] = await Promise.all([
+    getBlogsByCategory(limit, currentPage, categoryId),
+    getCategories(),
+    getBanners(),
+    getPopularArticles(),
+  ]);
+  return {
+    blogs: blogs.contents,
+    categories: categories.contents,
+    popularArticles,
+    pager,
+    banner,
+  };
+};
+
 export const getAllBlogs = async (): Promise<MicroCmsResponse<IBlog>> => {
   const res = await client.get<MicroCmsResponse<IBlog>>({
     endpoint: 'blog',
@@ -22,13 +49,13 @@ export const getBlogs = async (limit: number): Promise<MicroCmsResponse<IBlog>> 
 
 export const getBlogsByCategory = async (
   limit: number,
-  page: number,
+  currentPage: number,
   categoryId?: string,
 ): Promise<{ blogs: MicroCmsResponse<IBlog>; pager: number[] }> => {
   const queries: QueriesType = {
     limit: limit,
     filters: categoryId === undefined ? '' : `category[equals]${categoryId}`,
-    offset: (page - 1) * limit,
+    offset: (currentPage - 1) * limit,
   };
   const blogs = await client.get<MicroCmsResponse<IBlog>>({
     endpoint: 'blog',

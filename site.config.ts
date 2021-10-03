@@ -10,5 +10,6 @@ export const config = {
   apiKey: process.env.MICROCMS_APIKEY,
   serviceId: process.env.SERVICE_ID,
   headerLinks: [],
+  defaultLimit: process.env.NEXT_PUBLIC_DEFAULT_LIMIT ?? '10',
   defaultMaxLimit: 50,
 };

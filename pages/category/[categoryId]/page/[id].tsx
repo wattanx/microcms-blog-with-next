@@ -11,12 +11,12 @@ import {
   PopularArticle,
   Search,
 } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@/types';
-import { getBanners, getBlogsByCategory, getCategories, getPopularArticles } from '@blog';
+import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types';
+import { getContents } from '@blog';
 
 type PageProps = {
-  blogs: MicroCmsResponse<IBlog>;
-  categories: MicroCmsResponse<ICategory>;
+  blogs: IBlog[];
+  categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
   pager: [];
@@ -32,9 +32,9 @@ const Page: NextPage<PageProps> = (props) => {
     <div className="divider">
       <div className="container">
         <BreadCrumb category={props.selectedCategory} />
-        {props.blogs.contents.length === 0 && <>記事がありません</>}
+        {props.blogs.length === 0 && <>記事がありません</>}
         <ul>
-          {props.blogs.contents.map((blog) => {
+          {props.blogs.map((blog) => {
             return (
               <li key={blog.id} className="list">
                 <Link href="/[blogId]" as={`/${blog.id}`}>
@@ -62,7 +62,7 @@ const Page: NextPage<PageProps> = (props) => {
             );
           })}
         </ul>
-        {props.blogs.contents.length > 0 && (
+        {props.blogs.length > 0 && (
           <ul className="pager">
             <Pager pager={props.pager} selectedCategory={props.selectedCategory} />
           </ul>
@@ -71,7 +71,7 @@ const Page: NextPage<PageProps> = (props) => {
       <aside className="aside">
         <Banner banner={props.banner} />
         <Search />
-        <Categories categories={props.categories.contents} />
+        <Categories categories={props.categories} />
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
     </div>
@@ -89,25 +89,21 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const categoryId = context.params?.categoryId;
 
-  const limit: number = 10;
-  const { blogs, pager } = await getBlogsByCategory(limit, page, categoryId as string);
-  const categories = await getCategories();
-  const popularArticles = await getPopularArticles();
+  const { blogs, pager, categories, popularArticles, banner } = await getContents(
+    page,
+    categoryId as string,
+  );
   const selectedCategory =
-    categoryId !== undefined
-      ? categories.contents.find((content) => content.id === categoryId)
-      : undefined;
-
-  const banner = await getBanners();
+    categoryId !== undefined ? categories.find((content) => content.id === categoryId) : undefined;
 
   return {
     props: {
-      blogs: blogs,
-      categories: categories,
-      popularArticles: popularArticles,
-      banner: banner,
-      pager: pager,
-      selectedCategory: selectedCategory,
+      blogs,
+      categories,
+      popularArticles,
+      banner,
+      pager,
+      selectedCategory,
     },
   };
 }
