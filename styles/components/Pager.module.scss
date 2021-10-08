@@ -1,87 +1,48 @@
-@media (min-width: 1160px) {
-  .pager {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0 0;
-  }
-  .page {
-    width: 40px;
-    height: 40px;
-    background-color: #e5eff9;
-    border-radius: 5px;
-    margin: 10px;
-    &.active {
-      background-color: #3067af;
-      a {
-        color: #fff;
-      }
-    }
-    a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      color: #3067af;
-    }
-  }
+.wrapper {
+  padding: 16px 0;
 }
-@media (min-width: 820px) and (max-width: 1160px) {
-  .pager {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0 0;
-  }
-  .page {
-    width: 40px;
-    height: 40px;
-    background-color: #e5eff9;
-    border-radius: 5px;
-    margin: 10px;
-    &.active {
-      background-color: #3067af;
-      a {
-        color: #fff;
-      }
-    }
-    a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      color: #3067af;
-    }
-  }
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 0;
 }
-@media (max-width: 820px) {
-  .pager {
+
+.omission {
+  color: var(--color-text-off);
+  margin: 4px 12px;
+}
+
+.page {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 4px;
+
+  &.arrow {
+    margin: 4px 12px;
+  }
+
+  &.active {
+    background-color: var(--color-blue);
+
+    a,
+    a:hover {
+      color: #fff;
+    }
+  }
+
+  a {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 40px 0 0;
-  }
-  .page {
-    width: 32px;
-    height: 32px;
-    background-color: #e5eff9;
-    border-radius: 5px;
-    margin: 6px;
-    &.active {
-      background-color: #3067af;
-      a {
-        color: #fff;
-      }
-    }
-    a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      color: #3067af;
+    height: 100%;
+    color: var(--color-text-sub);
+
+    &:hover {
+      color: var(--color-blue);
     }
   }
 }
