@@ -1,15 +1,18 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { Banner, BreadCrumb, Categories, Meta, Pager, PopularArticle, Search } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types';
+import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
 import { getContents } from '@blog';
+import { Tags } from '@components/Tags';
 
 type IndexProps = {
+  currentPage: number;
   blogs: IBlog[];
   categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
   pager: [];
+  tags: ITag[];
 };
 
 const Index: NextPage<IndexProps> = (props) => {
@@ -49,7 +52,7 @@ const Index: NextPage<IndexProps> = (props) => {
         </ul>
         {props.blogs.length > 0 && (
           <ul className="pager">
-            <Pager pager={props.pager} />
+            <Pager pager={props.pager} currentPage={props.currentPage} />
           </ul>
         )}
       </div>
@@ -57,6 +60,7 @@ const Index: NextPage<IndexProps> = (props) => {
         <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories} />
+        <Tags tags={props.tags} />
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
     </div>
@@ -65,14 +69,16 @@ const Index: NextPage<IndexProps> = (props) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params || '1';
-  const { blogs, pager, categories, popularArticles, banner } = await getContents(page);
+  const { blogs, pager, categories, popularArticles, banner, tags } = await getContents(page);
   return {
     props: {
+      currentPage: parseInt(page),
       blogs,
       categories,
       popularArticles,
       pager,
       banner,
+      tags,
     },
   };
 }

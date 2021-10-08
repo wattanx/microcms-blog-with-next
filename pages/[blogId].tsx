@@ -8,10 +8,11 @@ import { Loader } from '@components/Loader';
 import { Meta } from '@components/Meta';
 import { PopularArticle } from '@components/PopularArticle';
 import { Post, Search, Share, Toc } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types/interface';
+import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
 import { convertToToc, TocTypes, convertToHtml } from '@utils';
 import { getAllBlogs, getBlogById, getContents } from '@blog';
+import { Tags } from '@components/Tags';
 
 type DetailProps = {
   blog: IBlog;
@@ -21,6 +22,7 @@ type DetailProps = {
   categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
+  tags: ITag[];
 };
 
 const Detail: NextPage<DetailProps> = (props) => {
@@ -75,6 +77,7 @@ const Detail: NextPage<DetailProps> = (props) => {
         <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories} />
+        <Tags tags={props.tags} />
         <PopularArticle blogs={props.popularArticles.articles} />
         <Latest blogs={props.blogs} />
       </aside>
@@ -98,7 +101,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const blog = await getBlogById(blogId);
   const toc = convertToToc(blog.body);
   const body = convertToHtml(blog.body);
-  const { blogs, categories, popularArticles, banner } = await getContents();
+  const { blogs, categories, popularArticles, banner, tags } = await getContents();
 
   return {
     props: {
@@ -109,6 +112,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       categories,
       popularArticles,
       banner,
+      tags,
     },
   };
 }

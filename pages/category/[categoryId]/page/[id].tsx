@@ -11,16 +11,19 @@ import {
   PopularArticle,
   Search,
 } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types';
+import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
 import { getContents } from '@blog';
+import { Tags } from '@components/Tags';
 
 type PageProps = {
+  currentPage: number;
   blogs: IBlog[];
   categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
   pager: [];
   selectedCategory: ICategory;
+  tags: ITag[];
 };
 
 const Page: NextPage<PageProps> = (props) => {
@@ -64,7 +67,11 @@ const Page: NextPage<PageProps> = (props) => {
         </ul>
         {props.blogs.length > 0 && (
           <ul className="pager">
-            <Pager pager={props.pager} selectedCategory={props.selectedCategory} />
+            <Pager
+              pager={props.pager}
+              currentPage={props.currentPage}
+              selectedCategory={props.selectedCategory}
+            />
           </ul>
         )}
       </div>
@@ -72,6 +79,7 @@ const Page: NextPage<PageProps> = (props) => {
         <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories} />
+        <Tags tags={props.tags} />
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
     </div>
@@ -89,7 +97,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const categoryId = context.params?.categoryId;
 
-  const { blogs, pager, categories, popularArticles, banner } = await getContents(
+  const { blogs, pager, categories, popularArticles, banner, tags } = await getContents(
     page,
     categoryId as string,
   );
@@ -98,12 +106,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
   return {
     props: {
+      currentPage: parseInt(page),
       blogs,
       categories,
       popularArticles,
       banner,
       pager,
       selectedCategory,
+      tags,
     },
   };
 }

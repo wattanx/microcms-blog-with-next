@@ -1,5 +1,5 @@
 import { config } from '@site.config';
-import { IBanner, IBlog, ICategory, IPopularArticles, MicroCmsResponse } from '@types';
+import { IBanner, IBlog, ICategory, IPopularArticles, ITag, MicroCmsResponse } from '@types';
 import { client } from '@framework';
 import { QueriesType } from 'microcms-js-sdk/dist/cjs/types';
 
@@ -7,19 +7,21 @@ const limit = parseInt(config.defaultLimit);
 
 export const getContents = async (
   currentPage: number = 1,
-  categoryId?: string,
+  articleFilter?: string,
 ): Promise<{
   blogs: IBlog[];
   categories: ICategory[];
   popularArticles: IPopularArticles;
   pager: number[];
   banner: IBanner;
+  tags: ITag[];
 }> => {
-  const [{ blogs, pager }, categories, banner, popularArticles] = await Promise.all([
-    getBlogsByCategory(limit, currentPage, categoryId),
+  const [{ blogs, pager }, categories, banner, popularArticles, tags] = await Promise.all([
+    getBlogsByFilter(limit, currentPage, articleFilter),
     getCategories(),
     getBanners(),
     getPopularArticles(),
+    getTags(),
   ]);
   return {
     blogs: blogs.contents,
@@ -27,6 +29,7 @@ export const getContents = async (
     popularArticles,
     pager,
     banner,
+    tags: tags.contents,
   };
 };
 
@@ -47,14 +50,14 @@ export const getBlogs = async (limit: number): Promise<MicroCmsResponse<IBlog>> 
   return res;
 };
 
-export const getBlogsByCategory = async (
+export const getBlogsByFilter = async (
   limit: number,
   currentPage: number,
-  categoryId?: string,
+  articleFilter?: string,
 ): Promise<{ blogs: MicroCmsResponse<IBlog>; pager: number[] }> => {
   const queries: QueriesType = {
     limit: limit,
-    filters: categoryId === undefined ? '' : `category[equals]${categoryId}`,
+    filters: articleFilter,
     offset: (currentPage - 1) * limit,
   };
   const blogs = await client.get<MicroCmsResponse<IBlog>>({
@@ -86,5 +89,13 @@ export const getPopularArticles = async (): Promise<IPopularArticles> => {
 
 export const getBanners = async (): Promise<IBanner> => {
   const res = await client.get<IBanner>({ endpoint: 'banner' });
+  return res;
+};
+
+export const getTags = async (): Promise<MicroCmsResponse<ITag>> => {
+  const res = await client.get<MicroCmsResponse<ITag>>({
+    endpoint: 'tags',
+    queries: { limit: 1000 },
+  });
   return res;
 };

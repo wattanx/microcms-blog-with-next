@@ -11,15 +11,18 @@ import {
   PopularArticle,
   Search,
 } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types';
-import { getBlogsByCategory, getContents } from '@blog';
+import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
+import { getBlogsByFilter, getContents } from '@blog';
+import { Tags } from '@components/Tags';
 
 type PageProps = {
+  currentPage: number;
   blogs: IBlog[];
   categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
   pager: [];
+  tags: ITag[];
 };
 
 const Page: NextPage<PageProps> = (props) => {
@@ -63,7 +66,7 @@ const Page: NextPage<PageProps> = (props) => {
         </ul>
         {props.blogs.length > 0 && (
           <ul className="pager">
-            <Pager pager={props.pager} />
+            <Pager pager={props.pager} currentPage={props.currentPage} />
           </ul>
         )}
       </div>
@@ -71,6 +74,7 @@ const Page: NextPage<PageProps> = (props) => {
         <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories} />
+        <Tags tags={props.tags} />
         <PopularArticle blogs={props.popularArticles.articles} />
       </aside>
     </div>
@@ -79,7 +83,7 @@ const Page: NextPage<PageProps> = (props) => {
 
 export async function getStaticPaths() {
   const limit: number = 10;
-  const { pager } = await getBlogsByCategory(limit, 1);
+  const { pager } = await getBlogsByFilter(limit, 1);
   const paths = pager.map((page) => {
     return { params: { id: (page + 1).toString() } };
   });
@@ -91,14 +95,16 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
-  const { blogs, pager, categories, popularArticles, banner } = await getContents(page);
+  const { blogs, pager, categories, popularArticles, banner, tags } = await getContents(page);
   return {
     props: {
+      currentPage: parseInt(page),
       blogs,
       categories,
       popularArticles,
       banner,
       pager,
+      tags,
     },
   };
 }

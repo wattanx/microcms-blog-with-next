@@ -12,16 +12,18 @@ import {
   Share,
   Toc,
 } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles } from '@/types';
+import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
 import { useDraft } from '@hooks';
 import styles from '@styles/Detail.module.scss';
 import { getContents } from '@blog';
+import { Tags } from '@components/Tags';
 
 type DraftProps = {
   blogs: IBlog[];
   categories: ICategory[];
   popularArticles: IPopularArticles;
   banner: IBanner;
+  tags: ITag[];
 };
 
 const Draft: NextPage<DraftProps> = (props) => {
@@ -77,6 +79,7 @@ const Draft: NextPage<DraftProps> = (props) => {
         <Banner banner={props.banner} />
         <Search />
         <Categories categories={props.categories} />
+        <Tags tags={props.tags} />
         <PopularArticle blogs={props.popularArticles.articles} />
         <Latest blogs={props.blogs} />
       </aside>
@@ -85,13 +88,14 @@ const Draft: NextPage<DraftProps> = (props) => {
 };
 
 export async function getStaticProps() {
-  const { blogs, categories, popularArticles, banner } = await getContents();
+  const { blogs, categories, popularArticles, banner, tags } = await getContents();
   return {
     props: {
       blogs,
       categories,
       popularArticles,
       banner,
+      tags,
     },
   };
 }
