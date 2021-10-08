@@ -31,6 +31,10 @@ export interface IBanner extends IMicroCmsResponseBase {
   revisedAt: string;
 }
 
+export interface ITag extends IMicroCmsResponseBase {
+  name?: string;
+}
+
 export interface IPopularArticles {
   createdAt: string;
   updatedAt: string;
