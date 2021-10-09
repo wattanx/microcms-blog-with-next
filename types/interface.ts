@@ -3,6 +3,7 @@ import { TocTypes } from '../utils/TocUtil';
 export interface IBlog extends IMicroCmsResponseBase {
   title?: string;
   category?: ICategory;
+  tag?: ITag[];
   toc_visible?: boolean;
   body?: string;
   description?: string;
@@ -29,6 +30,10 @@ export interface IBanner extends IMicroCmsResponseBase {
   updatedAt: string;
   publishedAt: string;
   revisedAt: string;
+}
+
+export interface ITag extends IMicroCmsResponseBase {
+  name?: string;
 }
 
 export interface IPopularArticles {

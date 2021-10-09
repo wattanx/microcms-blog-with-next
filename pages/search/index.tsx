@@ -52,6 +52,7 @@ const Index: NextPage<IndexProps> = (props) => {
                             createdAt={blog.createdAt}
                             author={blog.writer}
                             category={blog.category}
+                            tags={blog.tag}
                           />
                         </dd>
                       </dl>
