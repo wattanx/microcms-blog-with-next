@@ -96,10 +96,10 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const page: any = context.params?.id || '1';
   const categoryId = context.params?.categoryId;
-
+  const articleFilter = categoryId !== undefined ? `category[equals]${categoryId}` : undefined;
   const { blogs, pager, categories, popularArticles, banner, tags } = await getContents(
     page,
-    categoryId as string,
+    articleFilter,
   );
   const selectedCategory =
     categoryId !== undefined ? categories.find((content) => content.id === categoryId) : undefined;
