@@ -69,6 +69,7 @@ const Draft: NextPage<DraftProps> = (props) => {
               author={data.blog.writer}
               category={data.blog.category}
               createdAt={data.blog.createdAt}
+              tags={data.blog.tag}
             />
             {data.blog.toc_visible && <Toc toc={data.toc} />}
             <Post body={data.body} />

@@ -67,6 +67,8 @@ const Detail: NextPage<DetailProps> = (props) => {
               author={props.blog.writer}
               category={props.blog.category}
               createdAt={props.blog.createdAt}
+              tags={props.blog.tag}
+              isDetail={true}
             />
             {props.blog.toc_visible && <Toc toc={props.toc} />}
             <Post body={props.body} />

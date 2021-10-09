@@ -3,6 +3,7 @@ import { TocTypes } from '../utils/TocUtil';
 export interface IBlog extends IMicroCmsResponseBase {
   title?: string;
   category?: ICategory;
+  tag?: ITag[];
   toc_visible?: boolean;
   body?: string;
   description?: string;
