@@ -32,11 +32,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js"
           async
         ></script>
-
-        {/** HACK Chrome92でデバッグすると、SharedArrayBuffer is not defined というエラーがでる
-         * Reactのバージョンをあげても直らないので暫定対応
-         */}
-        <script>if (!crossOriginIsolated) SharedArrayBuffer = ArrayBuffer;</script>
       </Head>
       <div className="wrapper">
         <Header />

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '../../site.config';
 import { IBlog } from '@/types';
-import { convertToToc, convertToHtml } from '@utils';
+import { convertToToc, convertToHtml } from '@scripts';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const id = req.query.id;

@@ -1,10 +1,5 @@
+import { TocTypes } from '@types';
 import { JSDOM } from 'jsdom';
-
-export type TocTypes = {
-  text: string;
-  id: string;
-  name: string;
-};
 
 export function convertToToc(htmlString: string): TocTypes[] {
   const dom = new JSDOM(htmlString);

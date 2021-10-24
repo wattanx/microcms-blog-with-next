@@ -8,9 +8,9 @@ import { Loader } from '@components/Loader';
 import { Meta } from '@components/Meta';
 import { PopularArticle } from '@components/PopularArticle';
 import { Post, Search, Share, Toc } from '@components';
-import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types/interface';
+import { IBanner, IBlog, ICategory, IPopularArticles, ITag, TocTypes } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
-import { convertToToc, TocTypes, convertToHtml } from '@utils';
+import { convertToToc, convertToHtml } from '@scripts';
 import { getAllBlogs, getBlogById, getContents } from '@blog';
 import { Tags } from '@components/Tags';
 
