@@ -1,6 +1,6 @@
 import { getAllBlogs } from 'scripts/blog';
 import { config } from '../site.config';
-import { formatDate } from './DateUtil';
+import { formatDate } from '../utils/DateUtil';
 
 export async function generateSitemapXml(): Promise<string> {
   let xml: string = `<?xml version="1.0" encoding="UTF-8"?>`;
