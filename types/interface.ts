@@ -1,10 +1,19 @@
+import {
+  MicroCMSListContent,
+  MicroCMSListResponse,
+  MicroCMSObjectContent,
+  MicroCMSQueries,
+} from 'microcms-js-sdk';
+
+export type Queries = MicroCMSQueries;
+
 export type TocTypes = {
   text: string;
   id: string;
   name: string;
 };
 
-export interface IBlog extends IMicroCmsResponseBase {
+export interface IBlog extends ContentBase {
   title?: string;
   category?: ICategory;
   tag?: ITag[];
@@ -17,51 +26,32 @@ export interface IBlog extends IMicroCmsResponseBase {
   related_blogs: IBlog[];
 }
 
-export interface ICategory extends IMicroCmsResponseBase {
+export interface ICategory extends ContentBase {
   name?: string;
 }
 
-export interface IAuthor extends IMicroCmsResponseBase {
+export interface IAuthor extends ContentBase {
   name?: string;
   text?: string;
 }
 
-export interface IBanner extends IMicroCmsResponseBase {
+export interface IBanner extends MicroCMSObjectContent {
   image?: IMicroCmsImageType;
   url?: string;
   alt?: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
 }
 
-export interface ITag extends IMicroCmsResponseBase {
+export interface ITag extends ContentBase {
   name?: string;
 }
 
-export interface IPopularArticles {
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
+export interface IPopularArticles extends MicroCMSObjectContent {
   articles: IBlog[];
 }
 
-export type MicroCmsResponse<T> = {
-  contents: T[];
-  totalCount: number;
-  offset: number;
-  limit: number;
-};
+export type MicroCmsResponse<T> = MicroCMSListResponse<T>;
 
-export interface IMicroCmsResponseBase {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
-}
+export type ContentBase = MicroCMSListContent;
 
 export interface IMicroCmsImageType {
   url: string;
