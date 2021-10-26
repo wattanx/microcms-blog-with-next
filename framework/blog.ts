@@ -1,7 +1,14 @@
 import { config } from '@site.config';
-import { IBanner, IBlog, ICategory, IPopularArticles, ITag, MicroCmsResponse } from '@types';
+import {
+  IBanner,
+  IBlog,
+  ICategory,
+  IPopularArticles,
+  ITag,
+  MicroCmsResponse,
+  Queries,
+} from '@types';
 import { client } from '@framework';
-import { QueriesType } from 'microcms-js-sdk/dist/cjs/types';
 
 const limit = parseInt(config.defaultLimit);
 
@@ -55,7 +62,7 @@ export const getBlogsByFilter = async (
   currentPage: number,
   articleFilter?: string,
 ): Promise<{ blogs: MicroCmsResponse<IBlog>; pager: number[] }> => {
-  const queries: QueriesType = {
+  const queries: Queries = {
     limit: limit,
     filters: articleFilter,
     offset: (currentPage - 1) * limit,
