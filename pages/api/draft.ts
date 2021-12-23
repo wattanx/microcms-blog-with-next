@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     .get<IBlog>(
       `https://${config.serviceId}.microcms.io/api/v1/blog/${id}?draftKey=${draftKey}&depth=2`,
       {
-        headers: { 'X-API-KEY': config.apiKey },
+        headers: { 'X-MICROCMS-API-KEY': config.apiKey },
       },
     )
     .then(({ data }) => {
