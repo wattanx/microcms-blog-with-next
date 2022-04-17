@@ -40,16 +40,16 @@ export const getContents = async (
   };
 };
 
-export const getAllBlogs = async (): Promise<MicroCmsResponse<IBlog>> => {
-  const res = await client.get<MicroCmsResponse<IBlog>>({
+export const getAllBlogs = async () => {
+  const res = await client.getList<IBlog>({
     endpoint: 'blog',
     queries: { limit: config.defaultMaxLimit },
   });
   return res;
 };
 
-export const getBlogs = async (limit: number): Promise<MicroCmsResponse<IBlog>> => {
-  const res = await client.get<MicroCmsResponse<IBlog>>({
+export const getBlogs = async (limit: number) => {
+  const res = await client.getList<IBlog>({
     endpoint: 'blog',
     queries: { limit: limit },
   });
@@ -67,7 +67,7 @@ export const getBlogsByFilter = async (
     filters: articleFilter,
     offset: (currentPage - 1) * limit,
   };
-  const blogs = await client.get<MicroCmsResponse<IBlog>>({
+  const blogs = await client.getList<IBlog>({
     endpoint: 'blog',
     queries: queries,
   });
@@ -75,8 +75,8 @@ export const getBlogsByFilter = async (
   return { blogs, pager };
 };
 
-export const getBlogById = async (blogId: string): Promise<IBlog> => {
-  const res = await client.get<IBlog>({
+export const getBlogById = async (blogId: string) => {
+  const res = await client.getListDetail<IBlog>({
     endpoint: 'blog',
     contentId: blogId,
     queries: { depth: 2 },
@@ -84,18 +84,18 @@ export const getBlogById = async (blogId: string): Promise<IBlog> => {
   return res;
 };
 
-export const getCategories = async (): Promise<MicroCmsResponse<ICategory>> => {
-  const res = await client.get<MicroCmsResponse<ICategory>>({ endpoint: 'categories' });
+export const getCategories = async () => {
+  const res = await client.getList<ICategory>({ endpoint: 'categories' });
   return res;
 };
 
 export const getPopularArticles = async (): Promise<IPopularArticles> => {
-  const res = await client.get<IPopularArticles>({ endpoint: 'popular-articles' });
+  const res = await client.getObject<IPopularArticles>({ endpoint: 'popular-articles' });
   return res;
 };
 
 export const getBanners = async (): Promise<IBanner> => {
-  const res = await client.get<IBanner>({ endpoint: 'banner' });
+  const res = await client.getObject<IBanner>({ endpoint: 'banner' });
   return res;
 };
 
