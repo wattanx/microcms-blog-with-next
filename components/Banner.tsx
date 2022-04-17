@@ -2,7 +2,7 @@ import { IBanner } from '@/types';
 import styles from '@styles/components/Banner.module.scss';
 
 type BannerProps = {
-  banner?: IBanner;
+  banner: IBanner;
 };
 
 export const Banner: React.FC<BannerProps> = (props) => {

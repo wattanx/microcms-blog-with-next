@@ -8,19 +8,19 @@ import {
 export type Queries = MicroCMSQueries;
 
 export type TocTypes = {
-  text: string;
+  text: string | null;
   id: string;
   name: string;
 };
 
 export interface IBlog extends ContentBase {
-  title?: string;
+  title: string;
   category?: ICategory;
   tag?: ITag[];
   toc_visible?: boolean;
-  body?: string;
-  description?: string;
-  ogimage?: IMicroCmsImageType;
+  body: string;
+  description: string;
+  ogimage: IMicroCmsImageType;
   writer?: IAuthor;
   partner?: string;
   related_blogs: IBlog[];
@@ -36,7 +36,7 @@ export interface IAuthor extends ContentBase {
 }
 
 export interface IBanner extends MicroCMSObjectContent {
-  image?: IMicroCmsImageType;
+  image: IMicroCmsImageType;
   url?: string;
   alt?: string;
 }

@@ -1,4 +1,4 @@
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? '';
 
 export const pageview = (url: string) => {
   window.gtag('config', GA_TRACKING_ID, {
@@ -6,7 +6,7 @@ export const pageview = (url: string) => {
   });
 };
 
-export const event = ({ action, category, label, value }) => {
+export const event = ({ action, category, label, value }: any) => {
   if (!GA_TRACKING_ID) return;
 
   window.gtag('event', action, {

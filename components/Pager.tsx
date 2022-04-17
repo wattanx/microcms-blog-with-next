@@ -10,7 +10,7 @@ type PagerProps = {
 };
 
 export const Pager: React.FC<PagerProps> = (props) => {
-  const getPath = (pageNumber) => {
+  const getPath = (pageNumber: number) => {
     if (props.selectedCategory) {
       return `/category/${props.selectedCategory.id}/page/${pageNumber}`;
     } else if (props.selectedTag) {
