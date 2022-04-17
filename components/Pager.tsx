@@ -10,7 +10,7 @@ type PagerProps = {
 };
 
 export const Pager: React.FC<PagerProps> = (props) => {
-  const getPath = (pageNumber) => {
+  const getPath = (pageNumber: number) => {
     if (props.selectedCategory) {
       return `/category/${props.selectedCategory.id}/page/${pageNumber}`;
     } else if (props.selectedTag) {
@@ -26,7 +26,7 @@ export const Pager: React.FC<PagerProps> = (props) => {
           <li className={`${styles.page} ${styles.arrow}`}>
             <NextLink href={getPath(props.currentPage - 1)}>
               <a>
-                <img src="/images/icon_arrow_left.svg" alt="前のページへ" />
+                <img width="24" height="24" src="/images/icon_arrow_left.svg" alt="前のページへ" />
               </a>
             </NextLink>
           </li>
@@ -40,22 +40,20 @@ export const Pager: React.FC<PagerProps> = (props) => {
         )}
         {props.currentPage > 4 && <li className={styles.omission}>...</li>}
         {props.pager.map((page, index) => {
-          return (
-            <>
-              {props.currentPage - 3 <= page && page <= props.currentPage + 1 && (
-                <li
-                  key={index}
-                  className={`${styles.page} ${
-                    props.currentPage === page + 1 ? `${styles.active}` : ''
-                  }`}
-                >
-                  <NextLink href={getPath(page + 1)}>
-                    <a>{page + 1}</a>
-                  </NextLink>
-                </li>
-              )}
-            </>
-          );
+          if (props.currentPage - 3 <= page && page <= props.currentPage + 1) {
+            return (
+              <li
+                key={index}
+                className={`${styles.page} ${
+                  props.currentPage === page + 1 ? `${styles.active}` : ''
+                }`}
+              >
+                <NextLink href={getPath(page + 1)}>
+                  <a>{page + 1}</a>
+                </NextLink>
+              </li>
+            );
+          }
         })}
         {props.currentPage + 3 < props.pager.length && <li className={styles.omission}>...</li>}
         {props.currentPage + 2 < props.pager.length && (
@@ -69,7 +67,7 @@ export const Pager: React.FC<PagerProps> = (props) => {
           <li className={`${styles.page} ${styles.arrow}`}>
             <NextLink href={getPath(props.currentPage + 1)}>
               <a>
-                <img src="/images/icon_arrow_right.svg" alt="次のページへ" />
+                <img width="24" height="24" src="/images/icon_arrow_right.svg" alt="次のページへ" />
               </a>
             </NextLink>
           </li>

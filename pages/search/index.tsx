@@ -32,36 +32,37 @@ const Index: NextPage<IndexProps> = (props) => {
           onKeyPress={(e) => onEnterKeyEvent(e)}
         />
         <BreadCrumb />
-        {data.contents.length === 0 && <>記事がありません</>}
+        {data && data.contents.length === 0 && <>記事がありません</>}
         <ul>
-          {data.contents.map((blog) => {
-            return (
-              <li key={blog.id} className="list">
-                <Link href="/[blogId]" as={`/${blog.id}`}>
-                  <a className="link">
-                    <>
-                      {blog.ogimage && (
-                        <picture>
-                          <img src={`${blog.ogimage.url}?w=670`} className="ogimage lazyload" />
-                        </picture>
-                      )}
-                      <dl className="content">
-                        <dt className="title">{blog.title}</dt>
-                        <dd>
-                          <Meta
-                            createdAt={blog.createdAt}
-                            author={blog.writer}
-                            category={blog.category}
-                            tags={blog.tag}
-                          />
-                        </dd>
-                      </dl>
-                    </>
-                  </a>
-                </Link>
-              </li>
-            );
-          })}
+          {data &&
+            data.contents.map((blog) => {
+              return (
+                <li key={blog.id} className="list">
+                  <Link href="/[blogId]" as={`/${blog.id}`}>
+                    <a className="link">
+                      <>
+                        {blog.ogimage && (
+                          <picture>
+                            <img src={`${blog.ogimage.url}?w=670`} className="ogimage lazyload" />
+                          </picture>
+                        )}
+                        <dl className="content">
+                          <dt className="title">{blog.title}</dt>
+                          <dd>
+                            <Meta
+                              createdAt={blog.createdAt}
+                              author={blog.writer}
+                              category={blog.category}
+                              tags={blog.tag}
+                            />
+                          </dd>
+                        </dl>
+                      </>
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
       </div>
       <aside className="aside">
