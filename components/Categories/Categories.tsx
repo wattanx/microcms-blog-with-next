@@ -1,6 +1,6 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { ICategory } from '@/types';
-import styles from '@styles/components/Categories.module.scss';
+import styles from './Categories.module.scss';
 
 type CategoriesProps = {
   categories: ICategory[];
@@ -14,9 +14,14 @@ export const Categories: React.FC<CategoriesProps> = (props) => {
         {props.categories.map((category) => {
           return (
             <li className={styles.list} key={category.id}>
-              <Link href="/category/[categoryId]/page/[id]" as={`/category/${category.id}/page/1`}>
-                <a className="link">{category.name}</a>
-              </Link>
+              <NextLink
+                href="/category/[categoryId]/page/[id]"
+                as={`/category/${category.id}/page/1`}
+                passHref
+                prefetch={false}
+              >
+                <a className={styles.link}>{category.name}</a>
+              </NextLink>
             </li>
           );
         })}

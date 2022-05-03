@@ -1,9 +1,17 @@
 import { GetStaticPropsContext, NextPage } from 'next';
-import Link from 'next/link';
-import { Banner, BreadCrumb, Categories, Meta, Pager, PopularArticle, Search } from '@components';
+import NextLink from 'next/link';
+import {
+  Banner,
+  BreadCrumb,
+  Categories,
+  Meta,
+  Pager,
+  PopularArticle,
+  Search,
+  Tags,
+} from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
-import { getContents } from '@blog';
-import { Tags } from '@components/Tags';
+import { getContents } from '@/framework';
 
 type IndexProps = {
   currentPage: number;
@@ -25,7 +33,7 @@ const Index: NextPage<IndexProps> = (props) => {
           {props.blogs.map((blog) => {
             return (
               <li key={blog.id} className="list">
-                <Link href="/[blogId]" as={`/${blog.id}`}>
+                <NextLink href="/[blogId]" as={`/${blog.id}`} passHref prefetch={false}>
                   <a className="link">
                     <>
                       {blog.ogimage && (
@@ -46,7 +54,7 @@ const Index: NextPage<IndexProps> = (props) => {
                       </dl>
                     </>
                   </a>
-                </Link>
+                </NextLink>
               </li>
             );
           })}

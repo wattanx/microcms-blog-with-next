@@ -10,13 +10,13 @@ import {
   Post,
   Search,
   Share,
+  Tags,
   Toc,
 } from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
 import { useDraft } from '@hooks';
 import styles from '@styles/Detail.module.scss';
-import { getContents } from '@blog';
-import { Tags } from '@components/Tags';
+import { getContents, sanitizeHtml } from '@/framework';
 
 type DraftProps = {
   blogs: IBlog[];
@@ -32,6 +32,8 @@ const Draft: NextPage<DraftProps> = (props) => {
   if (isLoading || !data) {
     return <Loader />;
   }
+  const sanitizedHtml = sanitizeHtml(data.body);
+
   return (
     <div className={styles.divider}>
       <article className={styles.article}>
@@ -72,7 +74,7 @@ const Draft: NextPage<DraftProps> = (props) => {
               tags={data.blog.tag}
             />
             {data.blog.toc_visible && <Toc toc={data.toc} />}
-            <Post body={data.body} />
+            <Post sanitizedHtml={sanitizedHtml} />
           </div>
         </div>
       </article>

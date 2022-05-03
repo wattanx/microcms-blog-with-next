@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Link from 'next/link';
-import styles from '@styles/components/Header.module.scss';
+import NextLink from 'next/link';
+import styles from './Header.module.scss';
 
 export const Header: React.FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -9,9 +9,11 @@ export const Header: React.FC = () => {
     <div>
       <header className={styles.header}>
         <h1 className={styles.logo}>
-          <Link href="/">
-            <img className={styles.logoImg} src="/images/vercel.svg" alt="microCMS" />
-          </Link>
+          <NextLink href="/" passHref prefetch={false}>
+            <a>
+              <img className={styles.logoImg} src="/images/vercel.svg" alt="microCMS" />
+            </a>
+          </NextLink>
         </h1>
         <button className={styles.menuBtn} onClick={() => setOpen(!isOpen)}>
           <img src="/images/icon_menu.svg" alt="menu" />

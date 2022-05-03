@@ -9,22 +9,16 @@
     "format": "prettier --write **/*.{tsx,ts}"
   },
   "dependencies": {
-    "@types/dompurify": "^2.2.2",
-    "@types/jsdom": "^16.2.10",
-    "@types/react-scroll": "^1.8.2",
-    "@types/rss": "^0.0.28",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
-    "dompurify": "^2.2.8",
     "eslint": "^7.24.0",
     "eslint-plugin-react": "^7.23.2",
     "highlight.js": "^10.7.2",
     "jsdom": "^16.5.3",
     "microcms-js-sdk": "^2.0.0",
-    "next": "12",
-    "prettier": "^2.2.1",
+    "next": "^12.1.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.19.1",
@@ -33,11 +27,17 @@
     "sass": "^1.32.8"
   },
   "devDependencies": {
+    "@types/jsdom": "^16.2.10",
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.9",
+    "@types/react-scroll": "^1.8.2",
+    "@types/rss": "^0.0.28",
+    "@types/sanitize-html": "^2.6.2",
     "eslint-config-next": "^11.0.1",
     "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.2.1",
+    "sanitize-html": "^2.7.0",
     "typescript": "^4.3.2"
   },
   "license": "Apache-2.0 License"

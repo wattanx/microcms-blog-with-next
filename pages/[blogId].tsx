@@ -1,22 +1,27 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
-import { Banner } from '@components/Banner';
-import { BreadCrumb } from '@components/BreadCrumb';
-import { Categories } from '@components/Categories';
-import { Latest } from '@components/Latest';
-import { Loader } from '@components/Loader';
-import { Meta } from '@components/Meta';
-import { PopularArticle } from '@components/PopularArticle';
-import { Post, Search, Share, Toc } from '@components';
+import {
+  Banner,
+  BreadCrumb,
+  Categories,
+  Latest,
+  Loader,
+  Meta,
+  PopularArticle,
+  Post,
+  Search,
+  Share,
+  Toc,
+} from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag, TocTypes } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
 import { convertToToc, convertToHtml } from '@scripts';
-import { getAllBlogs, getBlogById, getContents } from '@blog';
-import { Tags } from '@components/Tags';
+import { getAllBlogs, getBlogById, getContents, sanitizeHtml } from '@/framework';
+import { Tags } from '@components/Tags/Tags';
 
 type DetailProps = {
   blog: IBlog;
-  body: string;
+  sanitizedHtml: string;
   toc: TocTypes[];
   blogs: IBlog[];
   categories: ICategory[];
@@ -71,7 +76,7 @@ const Detail: NextPage<DetailProps> = (props) => {
               isDetail={true}
             />
             {props.blog.toc_visible && <Toc toc={props.toc} />}
-            <Post body={props.body} />
+            <Post sanitizedHtml={props.sanitizedHtml} />
           </div>
         </div>
       </article>
@@ -102,13 +107,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const blogId: any = context.params?.blogId || '1';
   const blog = await getBlogById(blogId);
   const toc = convertToToc(blog.body);
-  const body = convertToHtml(blog.body);
+  const sanitizedHtml = sanitizeHtml(convertToHtml(blog.body));
   const { blogs, categories, popularArticles, banner, tags } = await getContents();
 
   return {
     props: {
       blog,
-      body,
+      sanitizedHtml,
       toc,
       blogs,
       categories,
