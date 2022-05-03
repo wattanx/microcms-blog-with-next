@@ -9,10 +9,6 @@
     "format": "prettier --write **/*.{tsx,ts}"
   },
   "dependencies": {
-    "@types/dompurify": "^2.2.2",
-    "@types/jsdom": "^16.2.10",
-    "@types/react-scroll": "^1.8.2",
-    "@types/rss": "^0.0.28",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "axios": "^0.21.1",
@@ -23,7 +19,7 @@
     "highlight.js": "^10.7.2",
     "jsdom": "^16.5.3",
     "microcms-js-sdk": "^2.0.0",
-    "next": "12",
+    "next": "^12.1.6",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -33,9 +29,13 @@
     "sass": "^1.32.8"
   },
   "devDependencies": {
+    "@types/dompurify": "^2.2.2",
+    "@types/jsdom": "^16.2.10",
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.9",
+    "@types/react-scroll": "^1.8.2",
+    "@types/rss": "^0.0.28",
     "eslint-config-next": "^11.0.1",
     "eslint-plugin-prettier": "^3.4.0",
     "typescript": "^4.3.2"
