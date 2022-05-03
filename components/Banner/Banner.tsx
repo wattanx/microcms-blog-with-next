@@ -1,5 +1,5 @@
 import { IBanner } from '@/types';
-import styles from '@styles/components/Banner.module.scss';
+import styles from './Banner.module.scss';
 
 type BannerProps = {
   banner: IBanner;

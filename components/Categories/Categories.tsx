@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { ICategory } from '@/types';
-import styles from '@styles/components/Categories.module.scss';
+import styles from './Categories.module.scss';
 
 type CategoriesProps = {
   categories: ICategory[];
@@ -20,7 +20,7 @@ export const Categories: React.FC<CategoriesProps> = (props) => {
                 passHref
                 prefetch={false}
               >
-                <a className="link">{category.name}</a>
+                <a className={styles.link}>{category.name}</a>
               </NextLink>
             </li>
           );

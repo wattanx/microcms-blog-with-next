@@ -1,5 +1,6 @@
 import DOMPurify from 'dompurify';
 import { useEffect, useState } from 'react';
+import styles from './Post.module.scss';
 
 type PostProps = {
   body?: string;
@@ -13,5 +14,5 @@ export const Post: React.FC<PostProps> = (props) => {
       setHtmlString(DOMPurify().sanitize(props.body));
     }
   }, []);
-  return <div className="post" dangerouslySetInnerHTML={{ __html: htmlString }}></div>;
+  return <div className={styles.post} dangerouslySetInnerHTML={{ __html: htmlString }}></div>;
 };

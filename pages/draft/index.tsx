@@ -10,13 +10,13 @@ import {
   Post,
   Search,
   Share,
+  Tags,
   Toc,
 } from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
 import { useDraft } from '@hooks';
 import styles from '@styles/Detail.module.scss';
-import { getContents } from '@blog';
-import { Tags } from '@components/Tags';
+import { getContents } from '@/framework';
 
 type DraftProps = {
   blogs: IBlog[];

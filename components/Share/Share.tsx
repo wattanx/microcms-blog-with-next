@@ -1,5 +1,5 @@
-import { config } from '../site.config';
-import styles from '@styles/components/Share.module.scss';
+import { config } from '../../site.config';
+import styles from './Share.module.scss';
 
 type ShareProps = {
   id: string;

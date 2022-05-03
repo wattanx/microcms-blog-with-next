@@ -1,9 +1,17 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import NextLink from 'next/link';
-import { Banner, BreadCrumb, Categories, Meta, Pager, PopularArticle, Search } from '@components';
+import {
+  Banner,
+  BreadCrumb,
+  Categories,
+  Meta,
+  Pager,
+  PopularArticle,
+  Search,
+  Tags,
+} from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
-import { getContents } from '@blog';
-import { Tags } from '@components/Tags';
+import { getContents } from '@/framework';
 
 type IndexProps = {
   currentPage: number;

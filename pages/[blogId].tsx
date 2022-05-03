@@ -1,18 +1,23 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
-import { Banner } from '@components/Banner';
-import { BreadCrumb } from '@components/BreadCrumb';
-import { Categories } from '@components/Categories';
-import { Latest } from '@components/Latest';
-import { Loader } from '@components/Loader';
-import { Meta } from '@components/Meta';
-import { PopularArticle } from '@components/PopularArticle';
-import { Post, Search, Share, Toc } from '@components';
+import {
+  Banner,
+  BreadCrumb,
+  Categories,
+  Latest,
+  Loader,
+  Meta,
+  PopularArticle,
+  Post,
+  Search,
+  Share,
+  Toc,
+} from '@components';
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag, TocTypes } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
 import { convertToToc, convertToHtml } from '@scripts';
 import { getAllBlogs, getBlogById, getContents } from '@blog';
-import { Tags } from '@components/Tags';
+import { Tags } from '@components/Tags/Tags';
 
 type DetailProps = {
   blog: IBlog;

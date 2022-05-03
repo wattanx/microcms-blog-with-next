@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { ITag } from '@types';
-import styles from '@styles/components/Tags.module.scss';
+import styles from './Tags.module.scss';
 
 type TagsProps = {
   tags: ITag[];
