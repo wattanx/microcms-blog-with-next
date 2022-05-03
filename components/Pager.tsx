@@ -24,7 +24,7 @@ export const Pager: React.FC<PagerProps> = (props) => {
       <ul className={styles.pager}>
         {props.currentPage > 1 && (
           <li className={`${styles.page} ${styles.arrow}`}>
-            <NextLink href={getPath(props.currentPage - 1)}>
+            <NextLink href={getPath(props.currentPage - 1)} passHref prefetch={false}>
               <a>
                 <img width="24" height="24" src="/images/icon_arrow_left.svg" alt="前のページへ" />
               </a>
@@ -33,7 +33,7 @@ export const Pager: React.FC<PagerProps> = (props) => {
         )}
         {props.currentPage > 3 && (
           <li className={styles.page}>
-            <NextLink href={getPath(1)}>
+            <NextLink href={getPath(1)} passHref prefetch={false}>
               <a>1</a>
             </NextLink>
           </li>
@@ -48,7 +48,7 @@ export const Pager: React.FC<PagerProps> = (props) => {
                   props.currentPage === page + 1 ? `${styles.active}` : ''
                 }`}
               >
-                <NextLink href={getPath(page + 1)}>
+                <NextLink href={getPath(page + 1)} passHref prefetch={false}>
                   <a>{page + 1}</a>
                 </NextLink>
               </li>
@@ -58,14 +58,14 @@ export const Pager: React.FC<PagerProps> = (props) => {
         {props.currentPage + 3 < props.pager.length && <li className={styles.omission}>...</li>}
         {props.currentPage + 2 < props.pager.length && (
           <li className={styles.page}>
-            <NextLink href={getPath(props.pager.length)}>
+            <NextLink href={getPath(props.pager.length)} passHref prefetch={false}>
               <a>{props.pager.length}</a>
             </NextLink>
           </li>
         )}
         {props.currentPage < props.pager.length && (
           <li className={`${styles.page} ${styles.arrow}`}>
-            <NextLink href={getPath(props.currentPage + 1)}>
+            <NextLink href={getPath(props.currentPage + 1)} passHref prefetch={false}>
               <a>
                 <img width="24" height="24" src="/images/icon_arrow_right.svg" alt="次のページへ" />
               </a>

@@ -16,7 +16,7 @@ export const Meta: React.FC<MetaProps> = (props) => {
       <div className="upper">
         {props.category &&
           (props.isDetail ? (
-            <NextLink href={`/category/${props.category.id}/page/1`}>
+            <NextLink href={`/category/${props.category.id}/page/1`} passHref prefetch={false}>
               <a className="category">{props.category.name}</a>
             </NextLink>
           ) : (
@@ -27,7 +27,7 @@ export const Meta: React.FC<MetaProps> = (props) => {
             props.tags.map((tag, _) => (
               <li key={tag.id}>
                 {props.isDetail ? (
-                  <NextLink href={`/tag/${tag.id}/page/1`}>
+                  <NextLink href={`/tag/${tag.id}/page/1`} passHref prefetch={false}>
                     <a>{tag.name}</a>
                   </NextLink>
                 ) : (

@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import {
   Banner,
   BreadCrumb,
@@ -40,7 +40,7 @@ const Page: NextPage<PageProps> = (props) => {
           {props.blogs.map((blog) => {
             return (
               <li key={blog.id} className="list">
-                <Link href="/[blogId]" as={`/${blog.id}`}>
+                <NextLink href="/[blogId]" as={`/${blog.id}`} passHref prefetch={false}>
                   <a className="link">
                     <>
                       {blog.ogimage && (
@@ -61,7 +61,7 @@ const Page: NextPage<PageProps> = (props) => {
                       </dl>
                     </>
                   </a>
-                </Link>
+                </NextLink>
               </li>
             );
           })}
