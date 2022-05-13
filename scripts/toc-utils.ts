@@ -7,7 +7,7 @@ export function convertToToc(htmlString: string): TocTypes[] {
   dom.window.document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading) => {
     toc.push({
       id: heading.id,
-      name: heading.tagName,
+      name: heading.tagName.toLowerCase(),
       text: heading.textContent,
     });
   });

@@ -6,6 +6,17 @@ type TocProps = {
   toc: TocTypes[];
 };
 
+const getMarginLeft = (name: string) => {
+  if (name === 'h2') {
+    return styles.h2;
+  }
+  if (name === 'h3') {
+    return styles.h3;
+  }
+
+  return '';
+};
+
 export const Toc: React.FC<TocProps> = (props) => {
   return (
     <div className={styles.wrapper}>
@@ -13,7 +24,7 @@ export const Toc: React.FC<TocProps> = (props) => {
         <ul className={styles.lists}>
           {props.toc.map((x) => {
             return (
-              <li key={x.id} className={`${styles.list} ${x.name}`}>
+              <li key={x.id} className={`${styles.list} ${getMarginLeft(x.name)}`}>
                 <Link to={`${x.id}`}>{x.text}</Link>
               </li>
             );
