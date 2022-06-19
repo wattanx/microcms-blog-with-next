@@ -1,3 +1,3 @@
-import sanitizeHtmlLib from 'sanitize-html';
+import DOMPurify from 'dompurify';
 
-export const sanitizeHtml = (html: string) => sanitizeHtmlLib(html);
+export const sanitizeHtml = (html: string) => DOMPurify.sanitize(html);

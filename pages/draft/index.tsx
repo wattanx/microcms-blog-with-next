@@ -16,7 +16,8 @@ import {
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag } from '@/types';
 import { useDraft } from '@hooks';
 import styles from '@styles/Detail.module.scss';
-import { getContents, sanitizeHtml } from '@/framework';
+import { getContents } from '@/framework';
+import { sanitizeHtml } from '@framework/sanitizeHtml';
 
 type DraftProps = {
   blogs: IBlog[];

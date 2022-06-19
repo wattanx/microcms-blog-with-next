@@ -16,7 +16,8 @@ import {
 import { IBanner, IBlog, ICategory, IPopularArticles, ITag, TocTypes } from '@/types/interface';
 import styles from '@styles/Detail.module.scss';
 import { convertToToc, convertToHtml } from '@scripts';
-import { getAllBlogs, getBlogById, getContents, sanitizeHtml } from '@/framework';
+import { getAllBlogs, getBlogById, getContents } from '@/framework';
+import { sanitizeHtml } from '@scripts/sanitizeHtml';
 import { Tags } from '@components/Tags/Tags';
 
 type DetailProps = {
